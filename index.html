@@ -1,0 +1,13402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+LET'S DRAW:
+MULTIVERSE ADVENTURE
+</title>
+
+<style>
+
+/* =====================
+   ROOT
+===================== */
+
+:root{
+
+--bg:#070912;
+
+--panel:#171c2d;
+
+--panel2:#212844;
+
+--gold:#f4c95d;
+
+--cyan:#61e4d8;
+
+--pink:#f0678f;
+
+--red:#ff6565;
+
+--green:#47d67b;
+
+--text:#f5f5f5;
+
+--muted:#97a0bf;
+
+}
+
+/* =====================
+   GLOBAL
+===================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:var(--bg);
+
+color:var(--text);
+
+font-family:
+"Segoe UI",
+sans-serif;
+
+overflow:hidden;
+
+height:100vh;
+
+}
+
+button{
+
+border:none;
+
+cursor:pointer;
+
+color:white;
+
+font-weight:bold;
+
+background:#2a3154;
+
+padding:12px 18px;
+
+border-radius:8px;
+
+transition:.2s;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+filter:brightness(1.12);
+
+}
+
+button.primary{
+
+background:
+linear-gradient(
+135deg,
+#f4c95d,
+#dca640
+);
+
+color:black;
+
+}
+
+.screen{
+
+position:absolute;
+
+inset:0;
+
+display:none;
+
+}
+
+.screen.active{
+
+display:flex;
+
+}
+
+/* =====================
+   INTRO SCREEN
+===================== */
+
+#intro{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+flex-direction:column;
+
+background:
+
+radial-gradient(
+circle,
+#1f2645,
+#070912
+);
+
+z-index:9999;
+
+}
+
+#glassCanvas{
+
+position:absolute;
+
+inset:0;
+
+width:100%;
+
+height:100%;
+
+pointer-events:none;
+
+}
+
+.introLogo{
+
+font-size:
+clamp(
+40px,
+6vw,
+90px
+);
+
+font-weight:900;
+
+text-align:center;
+
+color:var(--gold);
+
+text-shadow:
+
+0 0 15px
+rgba(
+244,
+201,
+93,
+0.5
+);
+
+margin-bottom:40px;
+
+z-index:2;
+
+}
+
+.introText{
+
+color:var(--muted);
+
+margin-bottom:30px;
+
+letter-spacing:3px;
+
+z-index:2;
+
+}
+
+/* =====================
+   MAIN MENU
+===================== */
+
+#home{
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.mainMenu{
+
+width:min(
+900px,
+95%
+);
+
+background:
+rgba(
+18,
+22,
+40,
+0.95
+);
+
+padding:40px;
+
+border-radius:16px;
+
+border:
+2px solid #313b65;
+
+box-shadow:
+0 0 40px
+rgba(
+0,
+0,
+0,
+0.45
+);
+
+}
+
+.gameTitle{
+
+font-size:
+clamp(
+36px,
+5vw,
+68px
+);
+
+font-weight:900;
+
+color:var(--gold);
+
+line-height:1;
+
+margin-bottom:10px;
+
+}
+
+.gameSub{
+
+color:var(--muted);
+
+margin-bottom:30px;
+
+}
+
+.menuButtons{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:12px;
+
+margin-bottom:25px;
+
+}
+
+/* =====================
+   PLAYER PROFILE
+===================== */
+
+.profilePanel{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+2,
+1fr
+);
+
+gap:15px;
+
+}
+
+.profileCard{
+
+background:var(--panel);
+
+padding:15px;
+
+border-radius:10px;
+
+}
+
+/* =====================
+   COLLECTION
+===================== */
+
+#collection{
+
+flex-direction:column;
+
+padding:30px;
+
+overflow:auto;
+
+background:#0b1020;
+
+}
+
+.collectionHeader{
+
+margin-bottom:20px;
+
+}
+
+.collectionGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+auto-fill,
+minmax(
+220px,
+1fr
+)
+);
+
+gap:15px;
+
+}
+
+.characterCard{
+
+background:var(--panel);
+
+border:
+2px solid
+#2f3964;
+
+border-radius:10px;
+
+padding:15px;
+
+}
+
+.characterCard.selected{
+
+border-color:
+var(--gold);
+
+box-shadow:
+0 0 15px
+rgba(
+244,
+201,
+93,
+0.35
+);
+
+}
+
+.charName{
+
+font-size:22px;
+
+font-weight:700;
+
+color:var(--gold);
+
+margin-bottom:6px;
+
+}
+
+.charClass{
+
+color:var(--cyan);
+
+font-size:13px;
+
+margin-bottom:10px;
+
+}
+
+/* =====================
+   DUNGEON
+===================== */
+
+#dungeon{
+
+flex-direction:column;
+
+padding:30px;
+
+background:#091018;
+
+}
+
+.dungeonGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(
+300px,
+1fr
+)
+);
+
+gap:20px;
+
+margin-top:20px;
+
+}
+
+.dungeonCard{
+
+background:var(--panel);
+
+border:
+2px solid #34406f;
+
+padding:20px;
+
+border-radius:12px;
+
+}
+
+.bossTag{
+
+display:inline-block;
+
+padding:5px 10px;
+
+background:#5e2946;
+
+border-radius:6px;
+
+margin-bottom:8px;
+
+}
+
+/* =====================
+   GAME
+===================== */
+
+#game{
+
+flex-direction:column;
+
+padding:10px;
+
+background:#040609;
+
+}
+
+.battleHUD{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:10px;
+
+margin-bottom:10px;
+
+}
+
+.hudCard{
+
+background:var(--panel);
+
+border:
+2px solid #2f3964;
+
+padding:10px;
+
+border-radius:10px;
+
+}
+
+.hpText{
+
+font-size:13px;
+
+margin-bottom:4px;
+
+}
+
+.bar{
+
+height:18px;
+
+background:black;
+
+border-radius:8px;
+
+overflow:hidden;
+
+}
+
+.fill{
+
+height:100%;
+
+width:100%;
+
+transition:.2s;
+}
+
+.playerFill{
+
+background:
+linear-gradient(
+90deg,
+#4adf80,
+#86ffd0
+);
+
+}
+
+.bossFill{
+
+background:
+linear-gradient(
+90deg,
+#ff5e75,
+#ffb0b0
+);
+
+}
+
+/* =====================
+   CANVAS
+===================== */
+
+#gameCanvas{
+
+width:100%;
+
+height:auto;
+
+max-height:55vh;
+
+background:#101528;
+
+border:
+2px solid #2e3960;
+
+border-radius:10px;
+
+}
+
+/* =====================
+   BOTTOM PANEL
+===================== */
+
+.battleBottom{
+
+margin-top:10px;
+
+display:grid;
+
+grid-template-columns:
+250px 1fr;
+
+gap:10px;
+
+flex:1;
+
+}
+
+.statusPanel{
+
+background:var(--panel);
+
+padding:10px;
+
+border-radius:10px;
+
+border:
+2px solid #2f3964;
+
+}
+
+.logPanel{
+
+background:var(--panel);
+
+padding:10px;
+
+border-radius:10px;
+
+border:
+2px solid #2f3964;
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+#combatLog{
+
+overflow:auto;
+
+font-size:13px;
+
+line-height:1.6;
+
+height:180px;
+
+color:#d0d6ea;
+
+}
+
+/* =====================
+   HOTKEYS
+===================== */
+
+.hotkeys{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:8px;
+
+margin-top:10px;
+
+}
+
+.key{
+
+background:#252c47;
+
+padding:6px 10px;
+
+border-radius:6px;
+
+font-size:12px;
+
+}
+
+/* =====================
+   MOBILE
+===================== */
+
+@media(max-width:900px){
+
+.profilePanel{
+
+grid-template-columns:
+1fr;
+
+}
+
+.battleHUD{
+
+grid-template-columns:
+1fr;
+
+}
+
+.battleBottom{
+
+grid-template-columns:
+1fr;
+
+}
+
+#gameCanvas{
+
+max-height:42vh;
+
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+
+<section
+id="intro"
+class="screen active">
+
+<canvas
+id="glassCanvas">
+</canvas>
+
+<div class="introLogo">
+
+LET'S DRAW
+<br>
+MULTIVERSE ADVENTURE
+
+</div>
+
+<div class="introText">
+
+THE MULTIVERSE IS BREAKING
+
+</div>
+
+<button
+id="enterGameBtn"
+class="primary">
+
+ENTER
+
+</button>
+
+</section>
+
+<!-- HOME -->
+
+<section
+id="home"
+class="screen">
+
+<div class="mainMenu">
+
+<div class="gameTitle">
+
+LET'S DRAW
+
+</div>
+
+<div class="gameSub">
+
+Multiverse Adventure
+
+</div>
+
+<div class="menuButtons">
+
+<button
+class="primary"
+id="newGameBtn">
+
+NEW GAME
+
+</button>
+
+<button
+id="collectionBtn">
+
+COLLECTION
+
+</button>
+
+<button
+id="dungeonBtn">
+
+DUNGEON
+
+</button>
+
+<button
+id="settingsBtn">
+
+SETTINGS
+
+</button>
+
+</div>
+
+<div class="profilePanel">
+
+<div class="profileCard">
+
+Coins:
+<span id="coinText">
+500
+</span>
+
+</div>
+
+<div class="profileCard">
+
+Soul Fragments:
+<span id="fragmentText">
+0
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- COLLECTION -->
+
+<section
+id="collection"
+class="screen">
+
+<h1>
+Character Collection
+</h1>
+
+<div
+class="collectionGrid"
+id="collectionGrid">
+</div>
+
+</section>
+
+<!-- DUNGEON -->
+
+<section
+id="dungeon"
+class="screen">
+
+<h1>
+Dungeon Selection
+</h1>
+
+<div class="dungeonGrid">
+
+<div class="dungeonCard">
+
+<div class="bossTag">
+BOSS DUNGEON
+</div>
+
+<h2>
+The Revenge of Old Friend
+</h2>
+
+<p>
+Face LN Darklord
+and uncover
+the truth hidden
+20 years ago.
+</p>
+
+<br>
+
+<button
+class="primary"
+id="startDungeonBtn">
+
+ENTER
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- GAME -->
+
+<section
+id="game"
+class="screen">
+
+<div class="battleHUD">
+
+<div class="hudCard">
+
+<h3>
+PLAYER
+</h3>
+
+<div
+id="playerName">
+MP
+</div>
+
+<div
+class="hpText"
+id="playerHPText">
+
+150 / 150
+
+</div>
+
+<div class="bar">
+
+<div
+id="playerBar"
+class="
+fill
+playerFill">
+</div>
+
+</div>
+
+</div>
+
+<div class="hudCard">
+
+<h3>
+LN DARKLORD
+</h3>
+
+<div
+class="hpText"
+id="bossHPText">
+
+1000 / 1000
+
+</div>
+
+<div class="bar">
+
+<div
+id="bossBar"
+class="
+fill
+bossFill">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<canvas
+id="gameCanvas"
+width="1280"
+height="720">
+</canvas>
+
+<div class="battleBottom">
+
+<div class="statusPanel">
+
+<h3>Status</h3>
+
+<div id="statusText">
+
+Ready
+
+</div>
+
+<div class="hotkeys">
+
+<div class="key">
+A / D
+</div>
+
+<div class="key">
+SPACE
+</div>
+
+<div class="key">
+J
+</div>
+
+<div class="key">
+K
+</div>
+
+<div class="key">
+R
+</div>
+
+</div>
+
+</div>
+
+<div class="logPanel">
+
+<h3>
+Combat Log
+</h3>
+
+<div
+id="combatLog">
+Battle Started.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+/*
+PART 1 KẾT THÚC
+
+Part 2 sẽ thêm:
+
+- Intro kính vỡ
+- Audio Manager
+- Scene Manager
+- Save System
+- LocalStorage
+- Menu Navigation
+
+*/
+
+</script>
+
+</body>
+</html>
+// ========================================
+// PART 2
+// CORE SYSTEM
+// ========================================
+
+// --------------------
+// SAVE SYSTEM
+// --------------------
+
+const SAVE_KEY =
+"ldma_v2_save";
+
+const defaultSave = {
+
+    coins:500,
+
+    fragments:0,
+
+    selectedCharacter:"MP",
+
+    unlockedCharacters:[
+        "MP"
+    ],
+
+    beatenDarklord:0
+
+};
+
+let saveData =
+loadSave();
+
+function loadSave(){
+
+    try{
+
+        const saved =
+        JSON.parse(
+
+            localStorage.getItem(
+                SAVE_KEY
+            )
+
+        );
+
+        return {
+
+            ...defaultSave,
+
+            ...saved
+
+        };
+
+    }catch{
+
+        return {
+
+            ...defaultSave
+
+        };
+
+    }
+
+}
+
+function saveGame(){
+
+    localStorage.setItem(
+
+        SAVE_KEY,
+
+        JSON.stringify(
+            saveData
+        )
+
+    );
+
+}
+
+// --------------------
+// UI REFERENCES
+// --------------------
+
+const introScreen =
+document.getElementById(
+    "intro"
+);
+
+const homeScreen =
+document.getElementById(
+    "home"
+);
+
+const collectionScreen =
+document.getElementById(
+    "collection"
+);
+
+const dungeonScreen =
+document.getElementById(
+    "dungeon"
+);
+
+const gameScreen =
+document.getElementById(
+    "game"
+);
+
+const collectionGrid =
+document.getElementById(
+    "collectionGrid"
+);
+
+// --------------------
+// SCENE MANAGER
+// --------------------
+
+function hideAllScreens(){
+
+    document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
+
+        screen.classList
+        .remove("active");
+
+    });
+
+}
+
+function showScreen(id){
+
+    hideAllScreens();
+
+    document
+    .getElementById(id)
+    .classList
+    .add("active");
+
+}
+
+// --------------------
+// COMBAT LOG
+// --------------------
+
+const logElement =
+document.getElementById(
+    "combatLog"
+);
+
+let combatLogs = [];
+
+function addLog(text){
+
+    combatLogs.unshift(text);
+
+    if(
+        combatLogs.length > 15
+    ){
+
+        combatLogs.pop();
+
+    }
+
+    logElement.innerHTML =
+
+    combatLogs.join(
+        "<br>"
+    );
+
+}
+
+// --------------------
+// AUDIO MANAGER
+// --------------------
+
+let audioContext;
+
+function getAudioContext(){
+
+    if(!audioContext){
+
+        audioContext =
+        new AudioContext();
+
+    }
+
+    return audioContext;
+
+}
+
+// --------------------
+// BUTTON CLICK
+// --------------------
+
+function playClickSound(){
+
+    const ctx =
+    getAudioContext();
+
+    const osc =
+    ctx.createOscillator();
+
+    const gain =
+    ctx.createGain();
+
+    osc.type = "square";
+
+    osc.frequency.value =
+    500;
+
+    gain.gain.value =
+    0.03;
+
+    osc.connect(gain);
+
+    gain.connect(
+        ctx.destination
+    );
+
+    osc.start();
+
+    osc.stop(
+
+        ctx.currentTime
+        + 0.05
+
+    );
+
+}
+
+// --------------------
+// GLASS BREAK SOUND
+// --------------------
+
+function playGlassBreak(){
+
+    const ctx =
+    getAudioContext();
+
+    const buffer =
+    ctx.createBuffer(
+        1,
+        22050,
+        22050
+    );
+
+    const data =
+    buffer.getChannelData(0);
+
+    for(
+        let i=0;
+        i<data.length;
+        i++
+    ){
+
+        data[i] =
+        Math.random()*2-1;
+
+    }
+
+    const source =
+    ctx.createBufferSource();
+
+    source.buffer =
+    buffer;
+
+    const gain =
+    ctx.createGain();
+
+    gain.gain.value =
+    0.15;
+
+    source.connect(gain);
+
+    gain.connect(
+        ctx.destination
+    );
+
+    source.start();
+
+    gain.gain
+    .exponentialRampToValueAtTime(
+
+        0.001,
+
+        ctx.currentTime+0.7
+
+    );
+
+}
+
+// --------------------
+// BGM
+// --------------------
+
+let musicLoop;
+
+function startBackgroundMusic(){
+
+    if(musicLoop)
+        return;
+
+    const ctx =
+    getAudioContext();
+
+    musicLoop =
+    setInterval(()=>{
+
+        const base =
+        ctx.currentTime;
+
+        const notes =
+
+        [220,294,330,440];
+
+        notes.forEach(
+            (
+                freq,
+                index
+            )=>{
+
+            const osc =
+            ctx.createOscillator();
+
+            const gain =
+            ctx.createGain();
+
+            osc.type =
+            "triangle";
+
+            osc.frequency.value =
+            freq;
+
+            gain.gain.value =
+            0.015;
+
+            osc.connect(gain);
+
+            gain.connect(
+                ctx.destination
+            );
+
+            osc.start(
+
+                base+
+                index*0.2
+
+            );
+
+            osc.stop(
+
+                base+
+                index*0.2+
+                0.8
+
+            );
+
+        });
+
+    },1800);
+
+}
+
+// --------------------
+// INTRO GLASS
+// --------------------
+
+const glassCanvas =
+document.getElementById(
+    "glassCanvas"
+);
+
+const gctx =
+glassCanvas.getContext("2d");
+
+function resizeGlass(){
+
+    glassCanvas.width =
+    window.innerWidth;
+
+    glassCanvas.height =
+    window.innerHeight;
+
+}
+
+resizeGlass();
+
+window.addEventListener(
+
+    "resize",
+
+    resizeGlass
+
+);
+
+const cracks = [];
+
+for(
+    let i=0;
+    i<45;
+    i++
+){
+
+    cracks.push({
+
+        x:
+        window.innerWidth/2,
+
+        y:
+        window.innerHeight/2,
+
+        angle:
+        Math.random()
+        *Math.PI*2,
+
+        length:
+        150 +
+        Math.random()*900
+
+    });
+
+}
+
+function drawCracks(){
+
+    gctx.clearRect(
+
+        0,
+        0,
+
+        glassCanvas.width,
+
+        glassCanvas.height
+
+    );
+
+    gctx.lineWidth = 2;
+
+    gctx.strokeStyle =
+
+    "rgba(255,255,255,.22)";
+
+    cracks.forEach(
+
+        crack=>{
+
+            gctx.beginPath();
+
+            gctx.moveTo(
+                crack.x,
+                crack.y
+            );
+
+            gctx.lineTo(
+
+                crack.x +
+                Math.cos(
+                    crack.angle
+                )
+                *
+                crack.length,
+
+                crack.y +
+                Math.sin(
+                    crack.angle
+                )
+                *
+                crack.length
+
+            );
+
+            gctx.stroke();
+
+        }
+
+    );
+
+}
+
+drawCracks();
+
+// --------------------
+// PROFILE UPDATE
+// --------------------
+
+function refreshProfile(){
+
+    document
+    .getElementById(
+        "coinText"
+    )
+    .textContent =
+    saveData.coins;
+
+    document
+    .getElementById(
+        "fragmentText"
+    )
+    .textContent =
+    saveData.fragments;
+
+}
+
+refreshProfile();
+
+// --------------------
+// COLLECTION RENDER
+// --------------------
+
+function renderCollection(){
+
+    collectionGrid.innerHTML =
+    "";
+
+    saveData
+    .unlockedCharacters
+    .forEach(name=>{
+
+        const card =
+        document.createElement(
+            "div"
+        );
+
+        card.className =
+        "characterCard";
+
+        card.innerHTML = `
+
+            <div class="charName">
+                ${name}
+            </div>
+
+            <div class="charClass">
+                PLAYABLE
+            </div>
+
+            <button>
+
+                ${
+                    saveData
+                    .selectedCharacter
+                    === name
+
+                    ?
+
+                    "SELECTED"
+
+                    :
+
+                    "SELECT"
+
+                }
+
+            </button>
+
+        `;
+
+        card
+        .querySelector(
+            "button"
+        )
+        .onclick = ()=>{
+
+            saveData
+            .selectedCharacter =
+            name;
+
+            saveGame();
+
+            renderCollection();
+
+        };
+
+        collectionGrid
+        .appendChild(card);
+
+    });
+
+}
+
+// --------------------
+// MENU EVENTS
+// --------------------
+
+document
+.getElementById(
+    "enterGameBtn"
+)
+.onclick = ()=>{
+
+    playGlassBreak();
+
+    startBackgroundMusic();
+
+    showScreen(
+        "home"
+    );
+
+};
+
+document
+.getElementById(
+    "collectionBtn"
+)
+.onclick = ()=>{
+
+    playClickSound();
+
+    renderCollection();
+
+    showScreen(
+        "collection"
+    );
+
+};
+
+document
+.getElementById(
+    "dungeonBtn"
+)
+.onclick = ()=>{
+
+    playClickSound();
+
+    showScreen(
+        "dungeon"
+    );
+
+};
+
+// --------------------
+// DEBUG START
+// --------------------
+
+addLog(
+    "System Ready."
+);
+
+addLog(
+    "Multiverse Connected."
+);
+
+addLog(
+    "The Mirror Space Awaits."
+);
+
+/*
+
+PART 2 END
+
+PART 3:
+
+- Character Database
+- MP
+- LN Betrayed
+- LN Darklord
+- HN Broken Wings
+- Unlock Logic
+- Soul Fragment System
+
+*/
+// ========================================
+// PART 3
+// CHARACTER DATABASE
+// ========================================
+
+const CHARACTERS = {
+
+    MP:{
+
+        id:"MP",
+
+        name:"MP",
+
+        class:"Adventurer",
+
+        rarity:"Common",
+
+        hp:150,
+
+        atk:20,
+
+        moveSpeed:4.5,
+
+        jumpPower:11,
+
+        unlock:true,
+
+        description:
+        "The beginning of the story."
+
+    },
+
+    "LN Betrayed":{
+
+        id:"LN Betrayed",
+
+        name:"LN Betrayed",
+
+        class:"Fallen Knight",
+
+        rarity:"Legendary",
+
+        hp:170,
+
+        atk:27,
+
+        moveSpeed:5,
+
+        jumpPower:11,
+
+        unlock:false,
+
+        description:
+        "Twenty years before becoming Darklord.",
+
+        cooldowns:{
+
+            darknessSlash:0,
+
+            chainsPull:0,
+
+            chainsTrap:0,
+
+            bindedSoul:0,
+
+            multiversalRift:0
+
+        }
+
+    },
+
+    "LN Darklord":{
+
+        id:"LN Darklord",
+
+        name:"LN Darklord",
+
+        class:"Dark King",
+
+        rarity:"Mythic",
+
+        hp:250,
+
+        atk:35,
+
+        moveSpeed:3.8,
+
+        jumpPower:10,
+
+        unlock:false,
+
+        description:
+        "The King of Darkness.",
+
+        soulStacks:0,
+
+        cooldowns:{
+
+            darknessSlash:0,
+
+            chainsPull:0,
+
+            chainsTrap:0,
+
+            bindedSoul:0,
+
+            multiversalRift:0,
+
+            sacrifice:0
+
+        }
+
+    },
+
+    "HN Broken Wings":{
+
+        id:"HN Broken Wings",
+
+        name:"HN Broken Wings",
+
+        class:"Broken Angel",
+
+        rarity:"Mythic",
+
+        hp:220,
+
+        atk:22,
+
+        moveSpeed:4.8,
+
+        jumpPower:11,
+
+        unlock:false,
+
+        description:
+        "The broken wing still flies.",
+
+        maxGoldenFeather:100,
+
+        goldenFeather:100,
+
+        goldenProtection:0,
+
+        cooldowns:{
+
+            featherThrow:0,
+
+            featherProtect:0,
+
+            goldenBurst:0,
+
+            brokenFly:0
+
+        }
+
+    }
+
+};
+
+// ========================================
+// PLAYER RUNTIME DATA
+// ========================================
+
+let playerData = null;
+
+function createCharacterInstance(
+    characterName
+){
+
+    const base =
+
+    JSON.parse(
+
+        JSON.stringify(
+
+            CHARACTERS[
+                characterName
+            ]
+
+        )
+
+    );
+
+    return {
+
+        ...base,
+
+        currentHP:
+        base.hp,
+
+        alive:true,
+
+        invFrames:0,
+
+        damageBonus:1,
+
+        damageReduction:0,
+
+        x:100,
+
+        y:300,
+
+        vx:0,
+
+        vy:0,
+
+        w:42,
+
+        h:60
+
+    };
+
+}
+
+// ========================================
+// UNLOCK SYSTEM
+// ========================================
+
+function unlockCharacter(
+    characterName
+){
+
+    if(
+
+        saveData
+        .unlockedCharacters
+        .includes(
+            characterName
+        )
+
+    ){
+        return;
+    }
+
+    saveData
+    .unlockedCharacters
+    .push(
+        characterName
+    );
+
+    addLog(
+        characterName +
+        " unlocked."
+    );
+
+    saveGame();
+
+}
+
+function checkCharacterUnlocks(){
+
+    if(
+        saveData
+        .beatenDarklord >= 1
+    ){
+
+        unlockCharacter(
+            "LN Betrayed"
+        );
+
+    }
+
+    if(
+        saveData
+        .beatenDarklord >= 5
+    ){
+
+        unlockCharacter(
+            "LN Darklord"
+        );
+
+    }
+
+    if(
+        saveData.fragments >= 50
+    ){
+
+        unlockCharacter(
+            "HN Broken Wings"
+        );
+
+    }
+
+}
+
+// ========================================
+// HN BROKEN WINGS
+// RESOURCE SYSTEM
+// ========================================
+
+function getFeatherModifier(
+    player
+){
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ){
+
+        return {
+
+            consume:1,
+
+            damage:1
+
+        };
+
+    }
+
+    if(
+        player
+        .goldenFeather < 50
+    ){
+
+        return {
+
+            consume:2,
+
+            damage:2.5
+
+        };
+
+    }
+
+    return {
+
+        consume:1,
+
+        damage:1
+
+    };
+
+}
+
+// ========================================
+// PASSIVE
+// GOLDEN WINGS
+// ========================================
+
+function applyGoldenWingsPassive(
+    player
+){
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ){
+        return;
+    }
+
+    player.goldenFeather = 100;
+
+    player.goldenProtection = 0;
+
+    addLog(
+        "Golden Wings activated."
+    );
+
+}
+
+// ========================================
+// PASSIVE
+// ONCE BELONGING
+// ALWAYS BELONGING
+// ========================================
+
+function checkGoldenFeatherReset(
+    player
+){
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ){
+        return;
+    }
+
+    if(
+        player.goldenFeather > 0
+    ){
+        return;
+    }
+
+    addLog(
+     "Once Belonging, Always Belonging!"
+    );
+
+    player.goldenFeather =
+    100;
+
+    player.triggerGoldenBurst =
+    true;
+
+}
+
+// ========================================
+// ENEMY FEATHER DATA
+// ========================================
+
+function addFeatherToEnemy(
+    enemy,
+    amount
+){
+
+    if(
+        enemy
+        .goldenFeatherStack
+        === undefined
+    ){
+
+        enemy
+        .goldenFeatherStack = 0;
+
+    }
+
+    enemy
+    .goldenFeatherStack +=
+    amount;
+
+}
+
+// ========================================
+// DARKLORD PASSIVE
+// ========================================
+
+function addSoulStack(
+    player
+){
+
+    if(
+        player.name !==
+        "LN Darklord"
+    ){
+        return;
+    }
+
+    player.soulStacks =
+
+    Math.min(
+
+        5,
+
+        player.soulStacks + 1
+
+    );
+
+}
+
+// ========================================
+// CHARACTER SELECT
+// ========================================
+
+function getSelectedCharacter(){
+
+    return saveData
+    .selectedCharacter;
+
+}
+
+function createSelectedCharacter(){
+
+    return createCharacterInstance(
+
+        getSelectedCharacter()
+
+    );
+
+}
+
+// ========================================
+// COLLECTION UPDATE
+// ========================================
+
+function renderCollection(){
+
+    collectionGrid.innerHTML =
+    "";
+
+    saveData
+    .unlockedCharacters
+    .forEach(character=>{
+
+        const data =
+        CHARACTERS[
+            character
+        ];
+
+        const card =
+        document.createElement("div");
+
+        card.className =
+
+            "characterCard" +
+
+            (
+
+                saveData
+                .selectedCharacter
+
+                ===
+
+                character
+
+                ?
+
+                " selected"
+
+                :
+
+                ""
+
+            );
+
+        card.innerHTML = `
+
+            <div class="charName">
+
+                ${data.name}
+
+            </div>
+
+            <div class="charClass">
+
+                ${data.class}
+
+            </div>
+
+            <div>
+
+                HP:
+                ${data.hp}
+
+            </div>
+
+            <div>
+
+                ATK:
+                ${data.atk}
+
+            </div>
+
+            <br>
+
+            <button>
+
+                ${
+                    saveData
+                    .selectedCharacter
+                    ===
+                    character
+
+                    ?
+
+                    "SELECTED"
+
+                    :
+
+                    "SELECT"
+
+                }
+
+            </button>
+
+        `;
+
+        card
+        .querySelector(
+            "button"
+        )
+        .onclick = ()=>{
+
+            saveData
+            .selectedCharacter =
+            character;
+
+            saveGame();
+
+            renderCollection();
+
+            addLog(
+
+                character +
+                " selected."
+
+            );
+
+        };
+
+        collectionGrid
+        .appendChild(card);
+
+    });
+
+}
+
+// ========================================
+// GAME DATA
+// ========================================
+
+const GAME_DATA = {
+
+    dungeon:{
+
+        id:"old_friend",
+
+        title:
+        "The Revenge of Old Friend",
+
+        boss:
+        "LN Darklord"
+
+    }
+
+};
+
+// ========================================
+// DEBUG UNLOCKS
+// REMOVE LATER
+// ========================================
+
+window.unlockAll = ()=>{
+
+    unlockCharacter(
+        "LN Betrayed"
+    );
+
+    unlockCharacter(
+        "LN Darklord"
+    );
+
+    unlockCharacter(
+        "HN Broken Wings"
+    );
+
+    renderCollection();
+
+};
+
+// ========================================
+// INIT
+// ========================================
+
+checkCharacterUnlocks();
+
+/*
+
+PART 3 END
+
+PART 4:
+
+- Combat Engine
+- Player Physics
+- Entity System
+- Collision System
+- Hitbox / Hurtbox
+- Damage Engine
+- Projectile Engine
+- Floating Damage Text
+
+*/
+// ========================================
+// PART 4
+// COMBAT ENGINE
+// ========================================
+
+const canvas =
+document.getElementById(
+    "gameCanvas"
+);
+
+const ctx =
+canvas.getContext("2d");
+
+// ========================================
+// GLOBAL GAME STATE
+// ========================================
+
+const game = {
+
+    running:false,
+
+    player:null,
+
+    boss:null,
+
+    projectiles:[],
+
+    hitboxes:[],
+
+    floatingTexts:[],
+
+    souls:[],
+
+    traps:[],
+
+    effects:[],
+
+    frame:0,
+
+    gravity:0.5
+
+};
+
+// ========================================
+// INPUT SYSTEM
+// ========================================
+
+const keys = {};
+
+let mouseX = 0;
+let mouseY = 0;
+
+window.addEventListener(
+    "keydown",
+    e=>{
+
+        keys[
+            e.key.toLowerCase()
+        ] = true;
+
+    }
+);
+
+window.addEventListener(
+    "keyup",
+    e=>{
+
+        keys[
+            e.key.toLowerCase()
+        ] = false;
+
+    }
+);
+
+canvas.addEventListener(
+    "mousemove",
+    e=>{
+
+        const rect =
+        canvas.getBoundingClientRect();
+
+        mouseX =
+
+        (e.clientX-rect.left)
+        *
+        (canvas.width/rect.width);
+
+        mouseY =
+
+        (e.clientY-rect.top)
+        *
+        (canvas.height/rect.height);
+
+    }
+);
+
+// ========================================
+// ENTITY HELPERS
+// ========================================
+
+function rectsIntersect(
+    a,
+    b
+){
+
+    return (
+
+        a.x < b.x + b.w &&
+
+        a.x + a.w > b.x &&
+
+        a.y < b.y + b.h &&
+
+        a.y + a.h > b.y
+
+    );
+
+}
+
+// ========================================
+// DAMAGE TEXT
+// ========================================
+
+function createDamageText(
+    value,
+    x,
+    y,
+    color="#ffffff"
+){
+
+    game.floatingTexts.push({
+
+        text:value,
+
+        x,
+
+        y,
+
+        color,
+
+        life:60
+
+    });
+
+}
+
+// ========================================
+// DAMAGE SYSTEM
+// ========================================
+
+function damageTarget(
+    source,
+    target,
+    damage
+){
+
+    if(!target)
+        return;
+
+    if(target.invFrames > 0)
+        return;
+
+    damage *=
+
+    (
+        source.damageBonus
+        || 1
+    );
+
+    damage *=
+
+    (
+        1 -
+
+        (
+            target.damageReduction
+            || 0
+        )
+
+    );
+
+    damage = Math.floor(
+        Math.max(
+            damage,
+            1
+        )
+    );
+
+    target.currentHP -=
+    damage;
+
+    target.invFrames = 20;
+
+    createDamageText(
+
+        damage,
+
+        target.x,
+
+        target.y,
+
+        "#ff6565"
+
+    );
+
+    if(
+        target.currentHP <= 0
+    ){
+
+        target.currentHP = 0;
+
+        target.alive = false;
+
+    }
+
+}
+
+// ========================================
+// HEAL SYSTEM
+// ========================================
+
+function healTarget(
+    target,
+    amount
+){
+
+    target.currentHP =
+
+    Math.min(
+
+        target.hp,
+
+        target.currentHP +
+        amount
+
+    );
+
+    createDamageText(
+
+        "+"+amount,
+
+        target.x,
+
+        target.y,
+
+        "#4aff7d"
+
+    );
+
+}
+
+// ========================================
+// HITBOX SYSTEM
+// ========================================
+
+function spawnHitbox({
+
+    owner,
+
+    x,
+
+    y,
+
+    w,
+
+    h,
+
+    damage,
+
+    duration
+
+}){
+
+    game.hitboxes.push({
+
+        owner,
+
+        x,
+
+        y,
+
+        w,
+
+        h,
+
+        damage,
+
+        duration,
+
+        hitTargets:
+        new Set()
+
+    });
+
+}
+
+// ========================================
+// PROJECTILE
+// ========================================
+
+function spawnProjectile({
+
+    owner,
+
+    x,
+
+    y,
+
+    vx,
+
+    vy,
+
+    w = 20,
+
+    h = 10,
+
+    damage = 10,
+
+    color = "#ffd65b",
+
+    type = "basic"
+
+}){
+
+    game.projectiles.push({
+
+        owner,
+
+        x,
+
+        y,
+
+        vx,
+
+        vy,
+
+        w,
+
+        h,
+
+        damage,
+
+        color,
+
+        type,
+
+        alive:true
+
+    });
+
+}
+
+// ========================================
+// GROUND
+// ========================================
+
+const GROUND_Y = 610;
+
+// ========================================
+// PHYSICS
+// ========================================
+
+function updatePlayerPhysics(){
+
+    const p =
+    game.player;
+
+    if(!p)
+        return;
+
+    const speed =
+    p.moveSpeed;
+
+    if(
+
+        keys["a"]
+
+    ){
+
+        p.vx =
+
+        -speed;
+
+    }
+    else if(
+
+        keys["d"]
+
+    ){
+
+        p.vx =
+
+        speed;
+
+    }
+    else{
+
+        p.vx *= 0.82;
+
+    }
+
+    if(
+
+        (
+            keys[" "]
+            ||
+            keys["w"]
+        )
+
+        &&
+
+        p.onGround
+
+    ){
+
+        p.vy =
+
+        -p.jumpPower;
+
+        p.onGround = false;
+
+    }
+
+    p.vy +=
+    game.gravity;
+
+    p.x += p.vx;
+
+    p.y += p.vy;
+
+    if(
+
+        p.y + p.h >=
+        GROUND_Y
+
+    ){
+
+        p.y =
+        GROUND_Y -
+        p.h;
+
+        p.vy = 0;
+
+        p.onGround = true;
+
+    }
+
+    p.x = Math.max(
+
+        0,
+
+        Math.min(
+
+            canvas.width - p.w,
+
+            p.x
+
+        )
+
+    );
+
+}
+
+// ========================================
+// UPDATE PROJECTILES
+// ========================================
+
+function updateProjectiles(){
+
+    game.projectiles
+    .forEach(projectile=>{
+
+        projectile.x +=
+        projectile.vx;
+
+        projectile.y +=
+        projectile.vy;
+
+        if(
+
+            game.boss
+
+            &&
+
+            projectile.owner
+            === game.player
+
+            &&
+
+            game.boss.alive
+
+            &&
+
+            rectsIntersect(
+
+                projectile,
+
+                game.boss
+
+            )
+
+        ){
+
+            damageTarget(
+
+                projectile.owner,
+
+                game.boss,
+
+                projectile.damage
+
+            );
+
+            projectile.alive =
+            false;
+
+        }
+
+    });
+
+    game.projectiles =
+
+    game.projectiles.filter(
+
+        projectile =>
+
+        projectile.alive
+
+        &&
+
+        projectile.x > -50
+
+        &&
+
+        projectile.x <
+        canvas.width + 50
+
+    );
+
+}
+
+// ========================================
+// UPDATE HITBOX
+// ========================================
+
+function updateHitboxes(){
+
+    game.hitboxes
+    .forEach(hitbox=>{
+
+        hitbox.duration--;
+
+        if(
+
+            hitbox.owner
+            === game.player
+
+            &&
+
+            game.boss
+            &&
+            game.boss.alive
+
+        ){
+
+            if(
+
+                rectsIntersect(
+
+                    hitbox,
+
+                    game.boss
+
+                )
+
+            ){
+
+                if(
+
+                    !hitbox
+                    .hitTargets
+                    .has(
+                        game.boss
+                    )
+
+                ){
+
+                    damageTarget(
+
+                        hitbox.owner,
+
+                        game.boss,
+
+                        hitbox.damage
+
+                    );
+
+                    hitbox
+                    .hitTargets
+                    .add(
+                        game.boss
+                    );
+
+                }
+
+            }
+
+        }
+
+    });
+
+    game.hitboxes =
+
+    game.hitboxes.filter(
+
+        hitbox =>
+
+        hitbox.duration > 0
+
+    );
+
+}
+
+// ========================================
+// FLOATING TEXT
+// ========================================
+
+function updateFloatingTexts(){
+
+    game.floatingTexts
+    .forEach(text=>{
+
+        text.y -= 1;
+
+        text.life--;
+
+    });
+
+    game.floatingTexts =
+
+    game.floatingTexts.filter(
+
+        text =>
+
+        text.life > 0
+
+    );
+
+}
+
+// ========================================
+// COOLDOWNS
+// ========================================
+
+function updateCooldowns(){
+
+    const player =
+    game.player;
+
+    if(
+        !player
+    ){
+        return;
+    }
+
+    if(
+        !player.cooldowns
+    ){
+        return;
+    }
+
+    Object.keys(
+        player.cooldowns
+    )
+    .forEach(skill=>{
+
+        if(
+
+            player
+            .cooldowns[
+                skill
+            ] > 0
+
+        ){
+
+            player
+            .cooldowns[
+                skill
+            ]--;
+
+        }
+
+    });
+
+}
+
+// ========================================
+// INV FRAME
+// ========================================
+
+function updateInvFrames(){
+
+    if(
+
+        game.player
+
+        &&
+
+        game.player
+        .invFrames > 0
+
+    ){
+
+        game.player
+        .invFrames--;
+
+    }
+
+    if(
+
+        game.boss
+
+        &&
+
+        game.boss
+        .invFrames > 0
+
+    ){
+
+        game.boss
+        .invFrames--;
+
+    }
+
+}
+
+// ========================================
+// BATTLE UPDATE
+// ========================================
+
+function updateGame(){
+
+    game.frame++;
+
+    updatePlayerPhysics();
+
+    updateProjectiles();
+
+    updateHitboxes();
+
+    updateFloatingTexts();
+
+    updateCooldowns();
+
+    updateInvFrames();
+
+}
+
+// ========================================
+// DRAW HELPERS
+// ========================================
+
+function drawRect(
+    x,
+    y,
+    w,
+    h,
+    color
+){
+
+    ctx.fillStyle =
+    color;
+
+    ctx.fillRect(
+        x,
+        y,
+        w,
+        h
+    );
+
+}
+
+// ========================================
+// DRAW PLAYER
+// ========================================
+
+function drawPlayer(){
+
+    const p =
+    game.player;
+
+    if(!p)
+        return;
+
+    drawRect(
+
+        p.x,
+
+        p.y,
+
+        p.w,
+
+        p.h,
+
+        "#61e4d8"
+
+    );
+
+}
+
+// ========================================
+// DRAW PROJECTILE
+// ========================================
+
+function drawProjectiles(){
+
+    game.projectiles
+    .forEach(projectile=>{
+
+        drawRect(
+
+            projectile.x,
+
+            projectile.y,
+
+            projectile.w,
+
+            projectile.h,
+
+            projectile.color
+
+        );
+
+    });
+
+}
+
+// ========================================
+// DAMAGE TEXT DRAW
+// ========================================
+
+function drawFloatingText(){
+
+    ctx.font =
+    "20px Arial";
+
+    game.floatingTexts
+    .forEach(text=>{
+
+        ctx.fillStyle =
+        text.color;
+
+        ctx.fillText(
+
+            text.text,
+
+            text.x,
+
+            text.y
+
+        );
+
+    });
+
+}
+
+// ========================================
+// DRAW BATTLE
+// ========================================
+
+function renderGame(){
+
+    ctx.clearRect(
+
+        0,
+        0,
+
+        canvas.width,
+
+        canvas.height
+
+    );
+
+    drawRect(
+
+        0,
+        0,
+
+        canvas.width,
+
+        canvas.height,
+
+        "#101528"
+
+    );
+
+    drawRect(
+
+        0,
+
+        GROUND_Y,
+
+        canvas.width,
+
+        120,
+
+        "#20293d"
+
+    );
+
+    drawPlayer();
+
+    drawProjectiles();
+
+    drawFloatingText();
+
+}
+
+// ========================================
+// MAIN LOOP
+// ========================================
+
+function gameLoop(){
+
+    if(
+        !game.running
+    ){
+        return;
+    }
+
+    updateGame();
+
+    renderGame();
+
+    requestAnimationFrame(
+        gameLoop
+    );
+
+}
+
+/*
+PART 4 END
+
+PART 5:
+
+- Boss Entity
+- LN Darklord AI
+- Soul AI
+- Dungeon Start
+- Victory / Defeat
+- HP Bar Update
+- Boss Rendering
+- Enemy Collision
+- Boss Phases
+
+*/
+// ========================================
+// PART 5
+// LN DARKLORD BOSS
+// ========================================
+
+const BOSS_DATA = {
+
+    darklord:{
+
+        name:"LN Darklord",
+
+        hp:1000,
+
+        atk:25,
+
+        moveSpeed:2.2,
+
+        phase:1
+
+    }
+
+};
+
+// ========================================
+// BOSS CREATE
+// ========================================
+
+function createDarklordBoss(){
+
+    const boss = {
+
+        ...BOSS_DATA.darklord,
+
+        currentHP:
+        BOSS_DATA.darklord.hp,
+
+        alive:true,
+
+        invFrames:0,
+
+        damageBonus:1,
+
+        damageReduction:0,
+
+        x:1000,
+
+        y:550,
+
+        vx:0,
+
+        vy:0,
+
+        w:80,
+
+        h:90,
+
+        phase:1,
+
+        aiTimer:0,
+
+        state:"idle",
+
+        skillCooldown:180,
+
+        lastSkill:""
+
+    };
+
+    return boss;
+
+}
+
+// ========================================
+// DUNGEON START
+// ========================================
+
+function startDungeon(){
+
+    const selected =
+
+    createSelectedCharacter();
+
+    game.player =
+    selected;
+
+    game.boss =
+    createDarklordBoss();
+
+    game.projectiles = [];
+
+    game.hitboxes = [];
+
+    game.floatingTexts = [];
+
+    game.effects = [];
+
+    game.traps = [];
+
+    game.souls = [];
+
+    game.frame = 0;
+
+    game.running = true;
+
+    updateHUD();
+
+    addLog(
+        "Entering The Revenge Of Old Friend..."
+    );
+
+    addLog(
+        "LN Darklord appears."
+    );
+
+    requestAnimationFrame(
+        gameLoop
+    );
+
+}
+
+// ========================================
+// UI UPDATE
+// ========================================
+
+function updateHUD(){
+
+    if(
+        !game.player
+    ){
+        return;
+    }
+
+    const player =
+    game.player;
+
+    const boss =
+    game.boss;
+
+    document
+    .getElementById(
+        "playerName"
+    )
+    .textContent =
+    player.name;
+
+    document
+    .getElementById(
+        "playerHPText"
+    )
+    .textContent =
+
+    `${player.currentHP}/${player.hp}`;
+
+    document
+    .getElementById(
+        "playerBar"
+    )
+    .style.width =
+
+    (
+        player.currentHP
+        /
+        player.hp
+        *100
+    ) + "%";
+
+    if(boss){
+
+        document
+        .getElementById(
+            "bossHPText"
+        )
+        .textContent =
+
+        `${boss.currentHP}/${boss.hp}`;
+
+        document
+        .getElementById(
+          "bossBar"
+        )
+        .style.width =
+
+        (
+            boss.currentHP
+            /
+            boss.hp
+            *100
+        ) + "%";
+
+    }
+
+}
+
+// ========================================
+// PHASE SYSTEM
+// ========================================
+
+function updateBossPhase(){
+
+    const boss =
+    game.boss;
+
+    if(!boss)
+        return;
+
+    const hpPercent =
+
+    boss.currentHP
+    /
+    boss.hp
+    *100;
+
+    let newPhase = 1;
+
+    if(
+        hpPercent <= 60
+    ){
+        newPhase = 2;
+    }
+
+    if(
+        hpPercent <= 25
+    ){
+        newPhase = 3;
+    }
+
+    if(
+        newPhase !==
+        boss.phase
+    ){
+
+        boss.phase =
+        newPhase;
+
+        addLog(
+
+            "LN Darklord enters Phase "
+            +
+            newPhase
+
+        );
+
+    }
+
+}
+
+// ========================================
+// BOSS MOVEMENT
+// ========================================
+
+function updateBossMovement(){
+
+    const boss =
+    game.boss;
+
+    const player =
+    game.player;
+
+    if(
+        !boss ||
+        !player
+    ){
+        return;
+    }
+
+    const distance =
+
+    player.x -
+    boss.x;
+
+    const absDistance =
+
+    Math.abs(
+       distance
+    );
+
+    if(absDistance > 250){
+
+        boss.vx =
+
+        Math.sign(
+            distance
+        )
+
+        *
+
+        boss.moveSpeed;
+
+    }
+    else if(
+        absDistance < 120
+    ){
+
+        boss.vx =
+
+        -Math.sign(
+            distance
+        )
+
+        *
+
+        boss.moveSpeed;
+
+    }
+    else{
+
+        boss.vx *= 0.8;
+
+    }
+
+    boss.x +=
+    boss.vx;
+
+}
+
+// ========================================
+// BOSS CONTACT DAMAGE
+// ========================================
+
+function updateBossContact(){
+
+    const boss =
+    game.boss;
+
+    const player =
+    game.player;
+
+    if(
+        !boss ||
+        !player
+    ){
+        return;
+    }
+
+    if(
+
+        rectsIntersect(
+
+            boss,
+            player
+
+        )
+
+    ){
+
+        damageTarget(
+
+            boss,
+
+            player,
+
+            boss.atk
+
+        );
+
+    }
+
+}
+
+// ========================================
+// SOUL CREATE
+// ========================================
+
+function spawnSoul(){
+
+    const soul = {
+
+        x:
+        game.boss.x,
+
+        y:
+        game.boss.y,
+
+        w:30,
+
+        h:30,
+
+        hp:30,
+
+        currentHP:30,
+
+        atk:8,
+
+        vx:0,
+
+        life:900,
+
+        alive:true
+
+    };
+
+    game.souls.push(
+        soul
+    );
+
+}
+
+// ========================================
+// SOUL AI
+// ========================================
+
+function updateSouls(){
+
+    const player =
+    game.player;
+
+    game.souls
+    .forEach(soul=>{
+
+        if(
+            !soul.alive
+        ){
+            return;
+        }
+
+        soul.life--;
+
+        const dx =
+
+        player.x -
+        soul.x;
+
+        soul.vx =
+
+        Math.sign(dx)
+        *1.8;
+
+        soul.x +=
+        soul.vx;
+
+        if(
+
+            rectsIntersect(
+
+                soul,
+
+                player
+
+            )
+
+        ){
+
+            damageTarget(
+
+                soul,
+
+                player,
+
+                soul.atk
+
+            );
+
+        }
+
+        if(
+            soul.life <= 0
+        ){
+
+            soul.alive = false;
+
+        }
+
+    });
+
+    game.souls =
+
+    game.souls.filter(
+
+        soul =>
+
+        soul.alive
+
+    );
+
+}
+
+// ========================================
+// DARKLORD SKILLS
+// ========================================
+
+function darklordSlash(){
+
+    const boss =
+    game.boss;
+
+    spawnHitbox({
+
+        owner:boss,
+
+        x:
+        boss.x - 280,
+
+        y:
+        boss.y + 20,
+
+        w:350,
+
+        h:50,
+
+        damage:45,
+
+        duration:15
+
+    });
+
+    addLog(
+        "Extended Darkness Slash"
+    );
+
+}
+
+function darklordSummon(){
+
+    spawnSoul();
+
+    spawnSoul();
+
+    addLog(
+        "Binded Soul Summon"
+    );
+
+}
+
+function darklordTeleport(){
+
+    const player =
+    game.player;
+
+    const boss =
+    game.boss;
+
+    const positions = [
+
+        player.x - 150,
+
+        player.x + 150,
+
+        player.x - 250,
+
+        player.x + 250
+
+    ];
+
+    boss.x =
+
+    positions[
+        Math.floor(
+            Math.random()*
+            positions.length
+        )
+    ];
+
+    addLog(
+        "Multiversal Rift"
+    );
+
+}
+
+// ========================================
+// BOSS AI
+// ========================================
+
+function updateBossAI(){
+
+    const boss =
+    game.boss;
+
+    if(
+        !boss ||
+        !boss.alive
+    ){
+        return;
+    }
+
+    boss.aiTimer++;
+
+    boss.skillCooldown--;
+
+    if(
+
+        boss.skillCooldown
+        > 0
+
+    ){
+
+        return;
+
+    }
+
+    if(
+        boss.phase === 1
+    ){
+
+        const roll =
+
+        Math.random();
+
+        if(
+            roll < 0.6
+        ){
+
+            darklordSlash();
+
+        }
+        else{
+
+            darklordTeleport();
+
+        }
+
+        boss.skillCooldown =
+        180;
+
+    }
+
+    if(
+        boss.phase === 2
+    ){
+
+        const roll =
+
+        Math.random();
+
+        if(
+            roll < 0.4
+        ){
+
+            darklordSlash();
+
+        }
+        else if(
+            roll < 0.7
+        ){
+
+            darklordSummon();
+
+        }
+        else{
+
+            darklordTeleport();
+
+        }
+
+        boss.skillCooldown =
+        140;
+
+    }
+
+    if(
+        boss.phase === 3
+    ){
+
+        const roll =
+
+        Math.random();
+
+        if(
+            roll < 0.35
+        ){
+
+            darklordSlash();
+
+        }
+        else if(
+            roll < 0.65
+        ){
+
+            darklordSummon();
+
+        }
+        else{
+
+            darklordTeleport();
+
+        }
+
+        boss.skillCooldown =
+        90;
+
+    }
+
+}
+
+// ========================================
+// PLAYER DEFEAT
+// ========================================
+
+function loseBattle(){
+
+    game.running =
+    false;
+
+    addLog(
+        "Defeat."
+    );
+
+}
+
+// ========================================
+// PLAYER WIN
+// ========================================
+
+function winBattle(){
+
+    game.running =
+    false;
+
+    saveData
+    .beatenDarklord++;
+
+    saveData.fragments +=
+    10;
+
+    checkCharacterUnlocks();
+
+    saveGame();
+
+    addLog(
+        "Victory!"
+    );
+
+}
+
+// ========================================
+// CHECK END
+// ========================================
+
+function checkBattleState(){
+
+    if(
+
+        game.player
+
+        &&
+
+        game.player
+        .currentHP <= 0
+
+    ){
+
+        loseBattle();
+
+    }
+
+    if(
+
+        game.boss
+
+        &&
+
+        game.boss
+        .currentHP <= 0
+
+    ){
+
+        winBattle();
+
+    }
+
+}
+
+// ========================================
+// DRAW BOSS
+// ========================================
+
+function drawBoss(){
+
+    const boss =
+    game.boss;
+
+    if(
+        !boss
+        ||
+        !boss.alive
+    ){
+        return;
+    }
+
+    drawRect(
+
+        boss.x,
+
+        boss.y,
+
+        boss.w,
+
+        boss.h,
+
+        "#8f3566"
+
+    );
+
+}
+
+// ========================================
+// DRAW SOULS
+// ========================================
+
+function drawSouls(){
+
+    game.souls
+    .forEach(soul=>{
+
+        drawRect(
+
+            soul.x,
+
+            soul.y,
+
+            soul.w,
+
+            soul.h,
+
+            "#bca8ff"
+
+        );
+
+    });
+
+}
+
+// ========================================
+// EXTEND UPDATE GAME
+// ========================================
+
+const oldUpdateGame =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdateGame();
+
+    updateBossPhase();
+
+    updateBossMovement();
+
+    updateBossContact();
+
+    updateBossAI();
+
+    updateSouls();
+
+    updateHUD();
+
+    checkBattleState();
+
+};
+
+// ========================================
+// EXTEND RENDER
+// ========================================
+
+const oldRenderGame =
+renderGame;
+
+renderGame = function(){
+
+    oldRenderGame();
+
+    drawBoss();
+
+    drawSouls();
+
+};
+
+// ========================================
+// START BUTTON
+// ========================================
+
+document
+.getElementById(
+    "startDungeonBtn"
+)
+.onclick = ()=>{
+
+    showScreen(
+        "game"
+    );
+
+    startDungeon();
+
+};
+
+/*
+PART 5 END
+
+PART 6:
+
+- LN Betrayed Skill Set
+- Darkness Slash (AoE Range)
+- Chains Pull
+- Chains Trap
+- Binded Soul Summon
+- Multiversal Rift (Mouse Target)
+
+*/
+// ========================================
+// PART 6
+// LN BETRAYED
+// ========================================
+
+// ========================================
+// RIFT TARGETING
+// ========================================
+
+let riftTargeting = false;
+
+canvas.addEventListener(
+    "click",
+    ()=>{
+
+        const player =
+        game.player;
+
+        if(
+            !player
+        ) return;
+
+        if(
+            player.name !==
+            "LN Betrayed"
+        ) return;
+
+        if(
+            !riftTargeting
+        ) return;
+
+        useMultiversalRift(
+            player,
+            mouseX
+        );
+
+        riftTargeting = false;
+
+    }
+);
+
+// ========================================
+// EFFECT HELPERS
+// ========================================
+
+function addEffect(effect){
+
+    game.effects.push(effect);
+
+}
+
+function updateEffects(){
+
+    game.effects.forEach(effect=>{
+
+        effect.life--;
+
+    });
+
+    game.effects =
+    game.effects.filter(
+        effect =>
+        effect.life > 0
+    );
+
+}
+
+const oldUpdateGame2 =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdateGame2();
+
+    updateEffects();
+
+};
+
+// ========================================
+// DARKNESS SLASH
+// AOE + RANGE
+// ========================================
+
+function useDarknessSlash(){
+
+    const player =
+    game.player;
+
+    if(
+        player.name !==
+        "LN Betrayed"
+    ) return;
+
+    if(
+        player.cooldowns
+        .darknessSlash > 0
+    ) return;
+
+    player.cooldowns
+    .darknessSlash = 180;
+
+    addLog(
+        "Darkness Slash!"
+    );
+
+    const slashRange =
+    450;
+
+    const slashDamage =
+
+    Math.floor(
+
+        player.atk * 2
+
+    );
+
+    addEffect({
+
+        type:"darknessSlash",
+
+        x:player.x,
+
+        y:player.y+15,
+
+        w:slashRange,
+
+        h:55,
+
+        life:20
+
+    });
+
+    // Boss hit
+
+    if(
+
+        game.boss
+
+        &&
+
+        game.boss.alive
+
+    ){
+
+        const slashBox = {
+
+            x:player.x,
+
+            y:player.y+15,
+
+            w:slashRange,
+
+            h:55
+
+        };
+
+        if(
+
+            rectsIntersect(
+
+                slashBox,
+
+                game.boss
+
+            )
+
+        ){
+
+            damageTarget(
+
+                player,
+
+                game.boss,
+
+                slashDamage
+
+            );
+
+        }
+
+    }
+
+    // Souls hit
+
+    game.souls.forEach(
+        soul=>{
+
+            const slashBox = {
+
+                x:player.x,
+
+                y:player.y+15,
+
+                w:slashRange,
+
+                h:55
+
+            };
+
+            if(
+
+                rectsIntersect(
+
+                    slashBox,
+
+                    soul
+
+                )
+
+            ){
+
+                damageTarget(
+
+                    player,
+
+                    soul,
+
+                    slashDamage
+
+                );
+
+            }
+
+        }
+    );
+
+}
+
+// ========================================
+// CHAINS OF BIND
+// PULL
+// ========================================
+
+function useChainsPull(){
+
+    const player =
+    game.player;
+
+    if(
+        player.cooldowns
+        .chainsPull > 0
+    ) return;
+
+    player.cooldowns
+    .chainsPull = 300;
+
+    addLog(
+        "Chains of Bind (Pull)"
+    );
+
+    if(
+
+        game.boss
+
+        &&
+
+        game.boss.alive
+
+    ){
+
+        if(
+
+            Math.abs(
+                game.boss.x -
+                player.x
+            )
+
+            <
+
+            600
+
+        ){
+
+            game.boss.x =
+
+            player.x + 80;
+
+            damageTarget(
+
+                player,
+
+                game.boss,
+
+                Math.floor(
+                    player.atk *
+                    0.6
+                )
+
+            );
+
+        }
+
+    }
+
+}
+
+// ========================================
+// CHAINS OF BIND
+// TRAP
+// ========================================
+
+function useChainsTrap(){
+
+    const player =
+    game.player;
+
+    if(
+        player.cooldowns
+        .chainsTrap > 0
+    ) return;
+
+    player.cooldowns
+    .chainsTrap = 420;
+
+    addLog(
+        "Chains of Bind (Trap)"
+    );
+
+    game.traps.push({
+
+        x:mouseX,
+
+        y:GROUND_Y-15,
+
+        w:80,
+
+        h:15,
+
+        life:300,
+
+        rootDuration:120
+
+    });
+
+}
+
+// ========================================
+// SOUL SUMMON
+// ========================================
+
+function useBindedSoulSummon(){
+
+    const player =
+    game.player;
+
+    if(
+        player.cooldowns
+        .bindedSoul > 0
+    ) return;
+
+    player.cooldowns
+    .bindedSoul = 720;
+
+    addLog(
+        "Binded Soul Summon"
+    );
+
+    game.souls.push({
+
+        owner:"player",
+
+        x:player.x,
+
+        y:player.y,
+
+        w:30,
+
+        h:30,
+
+        hp:30,
+
+        currentHP:30,
+
+        atk:5,
+
+        vx:0,
+
+        life:900,
+
+        alive:true
+
+    });
+
+    game.souls.push({
+
+        owner:"player",
+
+        x:player.x+40,
+
+        y:player.y,
+
+        w:30,
+
+        h:30,
+
+        hp:30,
+
+        currentHP:30,
+
+        atk:5,
+
+        vx:0,
+
+        life:900,
+
+        alive:true
+
+    });
+
+}
+
+// ========================================
+// MULTIVERSAL RIFT
+// ========================================
+
+function useMultiversalRift(
+    player,
+    targetX
+){
+
+    if(
+
+        player.cooldowns
+        .multiversalRift > 0
+
+    ) return;
+
+    player.cooldowns
+    .multiversalRift = 300;
+
+    addLog(
+        "Multiversal Rift"
+    );
+
+    addEffect({
+
+        type:"rift",
+
+        x:player.x,
+
+        y:player.y,
+
+        life:25
+
+    });
+
+    player.x =
+
+    Math.max(
+
+        0,
+
+        Math.min(
+
+            canvas.width-60,
+
+            targetX
+
+        )
+
+    );
+
+    addEffect({
+
+        type:"rift",
+
+        x:player.x,
+
+        y:player.y,
+
+        life:25
+
+    });
+
+}
+
+// ========================================
+// TRAP UPDATE
+// ========================================
+
+function updateTraps(){
+
+    game.traps.forEach(
+        trap=>{
+
+            trap.life--;
+
+            if(
+
+                rectsIntersect(
+
+                    trap,
+
+                    game.boss
+
+                )
+
+            ){
+
+                game.boss.rooted = 120;
+
+            }
+
+        }
+    );
+
+    game.traps =
+    game.traps.filter(
+        trap =>
+        trap.life > 0
+    );
+
+}
+
+const oldUpdateGame3 =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdateGame3();
+
+    updateTraps();
+
+};
+
+// ========================================
+// INPUTS
+// ========================================
+
+window.addEventListener(
+    "keydown",
+    e=>{
+
+        if(
+            !game.player
+        ) return;
+
+        const player =
+        game.player;
+
+        if(
+            player.name !==
+            "LN Betrayed"
+        ) return;
+
+        switch(
+            e.key.toLowerCase()
+        ){
+
+            case "j":
+
+                useDarknessSlash();
+
+                break;
+
+            case "1":
+
+                useChainsPull();
+
+                break;
+
+            case "2":
+
+                useChainsTrap();
+
+                break;
+
+            case "3":
+
+                useBindedSoulSummon();
+
+                break;
+
+            case "r":
+
+                if(
+
+                    player.cooldowns
+                    .multiversalRift <= 0
+
+                ){
+
+                    riftTargeting =
+                    true;
+
+                    addLog(
+                      "Select Rift destination"
+                    );
+
+                }
+
+                break;
+
+        }
+
+    }
+);
+
+// ========================================
+// RENDER EFFECTS
+// ========================================
+
+function drawEffects(){
+
+    game.effects.forEach(
+        effect=>{
+
+            if(
+                effect.type
+                ===
+                "darknessSlash"
+            ){
+
+                ctx.fillStyle =
+                "#7e3cff";
+
+                ctx.fillRect(
+
+                    effect.x,
+
+                    effect.y,
+
+                    effect.w,
+
+                    effect.h
+
+                );
+
+            }
+
+            if(
+                effect.type
+                ===
+                "rift"
+            ){
+
+                ctx.strokeStyle =
+                "#c087ff";
+
+                ctx.lineWidth = 3;
+
+                ctx.beginPath();
+
+                ctx.arc(
+
+                    effect.x,
+
+                    effect.y,
+
+                    40,
+
+                    0,
+
+                    Math.PI*2
+
+                );
+
+                ctx.stroke();
+
+            }
+
+        }
+    );
+
+}
+
+// ========================================
+// RIFT TARGET RENDER
+// ========================================
+
+function drawRiftTarget(){
+
+    if(
+        !riftTargeting
+    ) return;
+
+    ctx.strokeStyle =
+    "#e0b3ff";
+
+    ctx.lineWidth = 3;
+
+    ctx.beginPath();
+
+    ctx.arc(
+
+        mouseX,
+
+        mouseY,
+
+        20,
+
+        0,
+
+        Math.PI*2
+
+    );
+
+    ctx.stroke();
+
+}
+
+// ========================================
+// RENDER EXTENSION
+// ========================================
+
+const oldRenderGame2 =
+renderGame;
+
+renderGame = function(){
+
+    oldRenderGame2();
+
+    drawEffects();
+
+    drawRiftTarget();
+
+};
+
+/*
+========================================
+PART 6 END
+========================================
+
+PART 7:
+HN Broken Wings
+
+- Golden Wings
+- Golden Feather Throw
+- Golden Feather Protect
+- Golden Burst
+- Broken Fly
+- Golden Feather Resource Engine
+- Golden Protection
+- Once Belonging Always Belonging
+========================================
+*/
+// ========================================
+// PART 7
+// HN BROKEN WINGS
+// ========================================
+
+// ========================================
+// FEATHER HELPERS
+// ========================================
+
+function getFeatherMultiplier(player){
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ){
+
+        return {
+            consume:1,
+            damage:1
+        };
+
+    }
+
+    if(
+        player.goldenFeather < 50
+    ){
+
+        return {
+
+            consume:2,
+
+            damage:2.5
+
+        };
+
+    }
+
+    return {
+
+        consume:1,
+
+        damage:1
+
+    };
+
+}
+
+// ========================================
+// GOLDEN WINGS
+// ========================================
+
+function activateGoldenWings(){
+
+    const player =
+    game.player;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ){
+        return;
+    }
+
+    player.goldenFeather = 100;
+
+    player.goldenProtection = 0;
+
+    addLog(
+        "Golden Wings awakened."
+    );
+
+}
+
+// ========================================
+// FEATHER MARK SYSTEM
+// ========================================
+
+function addFeatherMark(
+    target,
+    amount
+){
+
+    if(
+        target.goldenFeatherStack
+        === undefined
+    ){
+
+        target.goldenFeatherStack = 0;
+
+    }
+
+    target.goldenFeatherStack +=
+    amount;
+
+}
+
+function getFeatherMark(
+    target
+){
+
+    return (
+        target
+        .goldenFeatherStack
+        || 0
+    );
+
+}
+
+// ========================================
+// GOLDEN FEATHER THROW
+// ========================================
+
+function useGoldenFeatherThrow(){
+
+    const player =
+    game.player;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ) return;
+
+    if(
+        player.cooldowns
+        .featherThrow > 0
+    ) return;
+
+    const modifier =
+    getFeatherMultiplier(
+        player
+    );
+
+    if(
+        player.goldenFeather <
+        modifier.consume
+    ){
+        return;
+    }
+
+    player.goldenFeather -=
+    modifier.consume;
+
+    player.cooldowns
+    .featherThrow = 25;
+
+    const damage =
+
+    Math.floor(
+
+        player.atk
+
+        *
+
+        1.8
+
+        *
+
+        modifier.damage
+
+    );
+
+    spawnProjectile({
+
+        owner:player,
+
+        x:
+        player.x +
+        player.w,
+
+        y:
+        player.y + 25,
+
+        vx:12,
+
+        vy:0,
+
+        damage,
+
+        type:"goldenFeather",
+
+        color:"#ffd44d",
+
+        w:18,
+
+        h:8
+
+    });
+
+    addLog(
+        "Golden Feather Throw"
+    );
+
+}
+
+// ========================================
+// FEATHER PROJECTILE HIT
+// ========================================
+
+const oldUpdateProjectiles =
+updateProjectiles;
+
+updateProjectiles = function(){
+
+    oldUpdateProjectiles();
+
+    game.projectiles.forEach(
+        projectile=>{
+
+            if(
+                projectile.type
+                !==
+                "goldenFeather"
+            ){
+                return;
+            }
+
+            if(
+                game.boss
+                &&
+                game.boss.alive
+                &&
+                rectsIntersect(
+                    projectile,
+                    game.boss
+                )
+            ){
+
+                addFeatherMark(
+                    game.boss,
+                    1
+                );
+
+            }
+
+        }
+    );
+
+};
+
+// ========================================
+// GOLDEN FEATHER PROTECT
+// ========================================
+
+function useGoldenFeatherProtect(){
+
+    const player =
+    game.player;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ){
+        return;
+    }
+
+    if(
+        player.cooldowns
+        .featherProtect > 0
+    ){
+        return;
+    }
+
+    if(
+        player.goldenFeather < 1
+    ){
+        return;
+    }
+
+    player.goldenFeather--;
+
+    player.cooldowns
+    .featherProtect = 180;
+
+    player.goldenProtection =
+
+    Math.min(
+
+        20,
+
+        player
+        .goldenProtection + 1
+
+    );
+
+    addLog(
+
+        "Golden Protection x"
+
+        +
+
+        player.goldenProtection
+
+    );
+
+}
+
+// ========================================
+// PROTECTION UPDATE
+// ========================================
+
+function updateGoldenProtection(){
+
+    const player =
+    game.player;
+
+    if(
+        !player
+    ) return;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ) return;
+
+    player.damageReduction =
+
+    Math.min(
+
+        0.60,
+
+        player
+        .goldenProtection
+        * 0.03
+
+    );
+
+}
+
+// ========================================
+// GOLDEN BURST
+// ========================================
+
+function useGoldenBurst(){
+
+    const player =
+    game.player;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ){
+        return;
+    }
+
+    if(
+        player.cooldowns
+        .goldenBurst > 0
+    ){
+        return;
+    }
+
+    player.cooldowns
+    .goldenBurst = 300;
+
+    let recovered = 0;
+
+    if(
+        game.boss
+        &&
+        game.boss.alive
+    ){
+
+        const stacks =
+
+        getFeatherMark(
+            game.boss
+        );
+
+        const damage =
+
+        Math.floor(
+
+            player.atk
+
+            *
+
+            stacks
+
+            *
+
+            2.5
+
+        );
+
+        if(
+            stacks > 0
+        ){
+
+            damageTarget(
+
+                player,
+
+                game.boss,
+
+                damage
+
+            );
+
+            recovered +=
+            stacks;
+
+            game.boss
+            .goldenFeatherStack = 0;
+
+        }
+
+    }
+
+    player.goldenFeather =
+
+    Math.min(
+
+        100,
+
+        player
+        .goldenFeather
+        +
+        recovered
+
+    );
+
+    addLog(
+
+        "Golden Burst: "
+
+        +
+
+        recovered
+
+        +
+
+        " feather recovered"
+
+    );
+
+}
+
+// ========================================
+// ONCE BELONGING
+// ALWAYS BELONGING
+// ========================================
+
+function checkGoldenReset(){
+
+    const player =
+    game.player;
+
+    if(
+        !player
+    ) return;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ) return;
+
+    if(
+        player.goldenFeather > 0
+    ){
+        return;
+    }
+
+    addLog(
+
+        "Once Belonging, Always Belonging"
+
+    );
+
+    useGoldenBurst();
+
+    player.goldenFeather =
+    100;
+
+}
+
+// ========================================
+// BROKEN FLY
+// ========================================
+
+function useBrokenFly(){
+
+    const player =
+    game.player;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ){
+        return;
+    }
+
+    if(
+        player.cooldowns
+        .brokenFly > 0
+    ){
+        return;
+    }
+
+    player.cooldowns
+    .brokenFly = 900;
+
+    player.flyTimer = 180;
+
+    player.damageBonus =
+    1.4;
+
+    player.invincibleTrap =
+    true;
+
+    addLog(
+        "Broken Fly"
+    );
+
+}
+
+// ========================================
+// FLY UPDATE
+// ========================================
+
+function updateBrokenFly(){
+
+    const player =
+    game.player;
+
+    if(
+        !player
+    ) return;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ) return;
+
+    if(
+        !player.flyTimer
+    ) return;
+
+    player.flyTimer--;
+
+    if(
+        player.flyTimer <= 0
+    ){
+
+        player.damageBonus =
+        1;
+
+        player.invincibleTrap =
+        false;
+
+        addLog(
+            "Broken Fly ended."
+        );
+
+    }
+
+}
+
+// ========================================
+// KILL RECOVERY
+// ========================================
+
+function onEnemyKilled(
+    enemy
+){
+
+    const player =
+    game.player;
+
+    if(
+        !player
+    ) return;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ) return;
+
+    const stack =
+
+    getFeatherMark(
+        enemy
+    );
+
+    player.goldenFeather =
+
+    Math.min(
+
+        100,
+
+        player
+        .goldenFeather +
+
+        stack
+
+    );
+
+}
+
+// ========================================
+// INPUT
+// ========================================
+
+window.addEventListener(
+    "keydown",
+    e=>{
+
+        if(
+            !game.player
+        ) return;
+
+        const player =
+        game.player;
+
+        if(
+            player.name !==
+            "HN Broken Wings"
+        ) return;
+
+        switch(
+            e.key.toLowerCase()
+        ){
+
+            case "j":
+
+                useGoldenFeatherThrow();
+
+                break;
+
+            case "1":
+
+                useGoldenFeatherProtect();
+
+                break;
+
+            case "2":
+
+                useGoldenBurst();
+
+                break;
+
+            case "3":
+
+                useBrokenFly();
+
+                break;
+
+        }
+
+    }
+);
+
+// ========================================
+// STATUS UI
+// ========================================
+
+function updateHNStatus(){
+
+    const player =
+    game.player;
+
+    if(
+        !player
+    ) return;
+
+    if(
+        player.name !==
+        "HN Broken Wings"
+    ) return;
+
+    document
+    .getElementById(
+        "statusText"
+    )
+    .innerHTML =
+
+    `Golden Feather:
+    ${player.goldenFeather}
+    <br>
+    Protection:
+    ${player.goldenProtection}`;
+
+}
+
+// ========================================
+// EXTEND UPDATE
+// ========================================
+
+const oldUpdateGame4 =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdateGame4();
+
+    updateGoldenProtection();
+
+    updateBrokenFly();
+
+    updateHNStatus();
+
+    checkGoldenReset();
+
+};
+
+/*
+========================================
+PART 7 END
+========================================
+
+PART 8:
+
+- LN Darklord Playable
+- Extended Darkness Slash
+- Chains Of Soul
+- Chains Trap
+- Soul Summon
+- Multiversal Rift
+- Binded Soul Sacrifice For The King
+
+========================================
+*/
+// ========================================
+// PART 8
+// LN DARKLORD (PLAYABLE)
+// ========================================
+
+// ========================================
+// PASSIVE
+// THE KING NEVER FALLS
+// ========================================
+
+function updateDarklordPassive(){
+
+    const player =
+    game.player;
+
+    if(!player) return;
+
+    if(
+        player.name !==
+        "LN Darklord"
+    ) return;
+
+    if(
+        game.frame % 600 === 0
+    ){
+
+        player.soulStacks =
+
+        Math.min(
+
+            5,
+
+            player.soulStacks + 1
+
+        );
+
+        addLog(
+            "Soul Stack +1"
+        );
+
+    }
+
+    player.damageBonus =
+
+    1 +
+
+    (
+        player.soulStacks
+        * 0.05
+    );
+
+    player.damageReduction =
+
+    player.soulStacks
+    * 0.03;
+
+}
+
+// ========================================
+// EXTENDED DARKNESS SLASH
+// ========================================
+
+function useExtendedDarknessSlash(){
+
+    const player =
+    game.player;
+
+    if(
+        player.name !==
+        "LN Darklord"
+    ) return;
+
+    if(
+        player.cooldowns
+        .darknessSlash > 0
+    ) return;
+
+    player.cooldowns
+    .darknessSlash = 120;
+
+    const damage =
+
+    Math.floor(
+
+        player.atk * 1.8
+
+    );
+
+    addEffect({
+
+        type:"darklordSlash",
+
+        x:player.x,
+
+        y:player.y+10,
+
+        w:400,
+
+        h:70,
+
+        life:20
+
+    });
+
+    const hitbox = {
+
+        x:player.x,
+
+        y:player.y+10,
+
+        w:400,
+
+        h:70
+
+    };
+
+    if(
+
+        game.boss
+
+        &&
+
+        game.boss.alive
+
+        &&
+
+        rectsIntersect(
+            hitbox,
+            game.boss
+        )
+
+    ){
+
+        damageTarget(
+
+            player,
+
+            game.boss,
+
+            damage
+
+        );
+
+    }
+
+    addLog(
+        "Extended Darkness Slash"
+    );
+
+}
+
+// ========================================
+// CHAINS OF SOUL
+// PULL
+// ========================================
+
+function useSoulPull(){
+
+    const player =
+    game.player;
+
+    if(
+        player.cooldowns
+        .chainsPull > 0
+    ) return;
+
+    player.cooldowns
+    .chainsPull = 240;
+
+    if(
+        game.boss &&
+        game.boss.alive
+    ){
+
+        game.boss.x =
+
+        player.x + 100;
+
+        damageTarget(
+
+            player,
+
+            game.boss,
+
+            Math.floor(
+                player.atk * 0.8
+            )
+
+        );
+
+    }
+
+    addLog(
+        "Chains Of Soul (Pull)"
+    );
+
+}
+
+// ========================================
+// CHAINS OF SOUL
+// TRAP
+// ========================================
+
+function useSoulTrap(){
+
+    const player =
+    game.player;
+
+    if(
+        player.cooldowns
+        .chainsTrap > 0
+    ) return;
+
+    player.cooldowns
+    .chainsTrap = 300;
+
+    game.traps.push({
+
+        owner:"darklord",
+
+        x:mouseX,
+
+        y:GROUND_Y-20,
+
+        w:100,
+
+        h:20,
+
+        life:360,
+
+        rootDuration:180
+
+    });
+
+    addLog(
+        "Chains Of Soul (Trap)"
+    );
+
+}
+
+// ========================================
+// SUMMON
+// ========================================
+
+function useRoyalSoulSummon(){
+
+    const player =
+    game.player;
+
+    if(
+        player.cooldowns
+        .bindedSoul > 0
+    ) return;
+
+    player.cooldowns
+    .bindedSoul = 600;
+
+    for(
+        let i=0;
+        i<2;
+        i++
+    ){
+
+        game.souls.push({
+
+            owner:"player",
+
+            x:
+            player.x +
+            i*30,
+
+            y:
+            player.y,
+
+            w:34,
+
+            h:34,
+
+            hp:40,
+
+            currentHP:40,
+
+            atk:8,
+
+            vx:0,
+
+            life:1200,
+
+            alive:true
+
+        });
+
+    }
+
+    addLog(
+        "Royal Souls Summoned"
+    );
+
+}
+
+// ========================================
+// MULTIVERSAL RIFT
+// ========================================
+
+function useDarklordRift(){
+
+    const player =
+    game.player;
+
+    if(
+        player.cooldowns
+        .multiversalRift > 0
+    ) return;
+
+    player.cooldowns
+    .multiversalRift = 300;
+
+    riftTargeting = true;
+
+    addLog(
+        "Choose Rift Destination"
+    );
+
+}
+
+// ========================================
+// ULTIMATE
+// BINDED SOUL SACRIFICE
+// ========================================
+
+function useSoulSacrifice(){
+
+    const player =
+    game.player;
+
+    if(
+        player.cooldowns
+        .sacrifice > 0
+    ) return;
+
+    if(
+        player.soulStacks < 5
+    ){
+
+        addLog(
+         "Need 5 Soul Stacks"
+        );
+
+        return;
+
+    }
+
+    player.cooldowns
+    .sacrifice = 2700;
+
+    player.soulStacks = 0;
+
+    addLog(
+      "Binded Soul Sacrifice For The King"
+    );
+
+    addEffect({
+
+        type:"sacrifice",
+
+        x:
+        game.boss.x,
+
+        y:
+        game.boss.y,
+
+        radius:180,
+
+        life:120
+
+    });
+
+    setTimeout(()=>{
+
+        if(
+            game.boss &&
+            game.boss.alive
+        ){
+
+            damageTarget(
+
+                player,
+
+                game.boss,
+
+                Math.floor(
+                    player.atk * 5
+                )
+
+            );
+
+        }
+
+    },2000);
+
+}
+
+// ========================================
+// INPUT
+// ========================================
+
+window.addEventListener(
+    "keydown",
+    e=>{
+
+        if(
+            !game.player
+        ) return;
+
+        const player =
+        game.player;
+
+        if(
+            player.name !==
+            "LN Darklord"
+        ) return;
+
+        switch(
+            e.key.toLowerCase()
+        ){
+
+            case "j":
+
+                useExtendedDarknessSlash();
+
+                break;
+
+            case "1":
+
+                useSoulPull();
+
+                break;
+
+            case "2":
+
+                useSoulTrap();
+
+                break;
+
+            case "3":
+
+                useRoyalSoulSummon();
+
+                break;
+
+            case "r":
+
+                useDarklordRift();
+
+                break;
+
+            case "f":
+
+                useSoulSacrifice();
+
+                break;
+
+        }
+
+    }
+);
+
+// ========================================
+// STATUS PANEL
+// ========================================
+
+function updateDarklordStatus(){
+
+    const player =
+    game.player;
+
+    if(
+        !player
+    ) return;
+
+    if(
+        player.name !==
+        "LN Darklord"
+    ) return;
+
+    document
+    .getElementById(
+        "statusText"
+    )
+    .innerHTML =
+
+    `
+    Soul Stacks:
+    ${player.soulStacks}
+    <br>
+    Damage Bonus:
+    +${Math.floor(
+        player.damageBonus
+        *100 -100
+    )}%
+    `;
+
+}
+
+// ========================================
+// VISUALS
+// ========================================
+
+const oldDrawEffectsDarklord =
+drawEffects;
+
+drawEffects = function(){
+
+    oldDrawEffectsDarklord();
+
+    game.effects.forEach(
+        effect=>{
+
+            if(
+                effect.type ===
+                "darklordSlash"
+            ){
+
+                ctx.fillStyle =
+                "#9528ff";
+
+                ctx.fillRect(
+
+                    effect.x,
+
+                    effect.y,
+
+                    effect.w,
+
+                    effect.h
+
+                );
+
+            }
+
+            if(
+                effect.type ===
+                "sacrifice"
+            ){
+
+                ctx.strokeStyle =
+                "#ff5ecb";
+
+                ctx.lineWidth =
+                5;
+
+                ctx.beginPath();
+
+                ctx.arc(
+
+                    effect.x,
+
+                    effect.y,
+
+                    effect.radius,
+
+                    0,
+
+                    Math.PI*2
+
+                );
+
+                ctx.stroke();
+
+            }
+
+        }
+    );
+
+};
+
+// ========================================
+// UPDATE EXTENSION
+// ========================================
+
+const oldUpdateGame5 =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdateGame5();
+
+    updateDarklordPassive();
+
+    updateDarklordStatus();
+
+};
+
+/*
+========================================
+PART 8 END
+========================================
+
+PART 9:
+- Hoàn thiện Soul AI đồng minh
+- Boss Skill thật đầy đủ
+- Victory Screen
+- Defeat Screen
+- Audio chiến đấu
+- Pause Menu
+- Settings
+- Bug Fix pass
+========================================
+*/
+// ========================================
+// PART 9
+// FINISH CORE COMBAT
+// ========================================
+
+// ========================================
+// PAUSE SYSTEM
+// ========================================
+
+let paused = false;
+
+window.addEventListener(
+    "keydown",
+    e=>{
+
+        if(
+            e.key === "Escape"
+        ){
+
+            paused = !paused;
+
+            addLog(
+
+                paused
+
+                ?
+
+                "Game Paused"
+
+                :
+
+                "Game Resumed"
+
+            );
+
+        }
+
+    }
+);
+
+// ========================================
+// AUDIO
+// ========================================
+
+function playAttackSound(){
+
+    const ctx =
+    getAudioContext();
+
+    const osc =
+    ctx.createOscillator();
+
+    const gain =
+    ctx.createGain();
+
+    osc.type = "square";
+
+    osc.frequency.value =
+    250;
+
+    gain.gain.value =
+    0.05;
+
+    osc.connect(gain);
+
+    gain.connect(
+        ctx.destination
+    );
+
+    osc.start();
+
+    osc.stop(
+        ctx.currentTime +
+        0.08
+    );
+
+}
+
+function playHitSound(){
+
+    const ctx =
+    getAudioContext();
+
+    const osc =
+    ctx.createOscillator();
+
+    const gain =
+    ctx.createGain();
+
+    osc.type =
+    "sawtooth";
+
+    osc.frequency.value =
+    140;
+
+    gain.gain.value =
+    0.06;
+
+    osc.connect(gain);
+
+    gain.connect(
+        ctx.destination
+    );
+
+    osc.start();
+
+    osc.stop(
+        ctx.currentTime +
+        0.12
+    );
+
+}
+
+function playVictorySound(){
+
+    const ctx =
+    getAudioContext();
+
+    [440,554,660]
+    .forEach(
+        (note,index)=>{
+
+            const osc =
+            ctx.createOscillator();
+
+            const gain =
+            ctx.createGain();
+
+            osc.frequency.value =
+            note;
+
+            gain.gain.value =
+            0.05;
+
+            osc.connect(gain);
+
+            gain.connect(
+                ctx.destination
+            );
+
+            osc.start(
+                ctx.currentTime
+                + index*0.15
+            );
+
+            osc.stop(
+                ctx.currentTime
+                + index*0.15 +
+                0.4
+            );
+
+        }
+    );
+
+}
+
+function playDefeatSound(){
+
+    const ctx =
+    getAudioContext();
+
+    const osc =
+    ctx.createOscillator();
+
+    const gain =
+    ctx.createGain();
+
+    osc.type =
+    "triangle";
+
+    osc.frequency.setValueAtTime(
+        300,
+        ctx.currentTime
+    );
+
+    osc.frequency
+    .exponentialRampToValueAtTime(
+
+        60,
+
+        ctx.currentTime+1
+
+    );
+
+    gain.gain.value =
+    0.08;
+
+    osc.connect(gain);
+
+    gain.connect(
+        ctx.destination
+    );
+
+    osc.start();
+
+    osc.stop(
+        ctx.currentTime+1
+    );
+
+}
+
+// ========================================
+// ROOT SYSTEM
+// ========================================
+
+function updateRootSystem(){
+
+    const boss =
+    game.boss;
+
+    if(
+        !boss
+    ) return;
+
+    if(
+        boss.rooted > 0
+    ){
+
+        boss.rooted--;
+
+        boss.vx = 0;
+
+    }
+
+}
+
+// ========================================
+// OVERRIDE MOVEMENT
+// ========================================
+
+const oldBossMove =
+updateBossMovement;
+
+updateBossMovement =
+function(){
+
+    if(
+
+        game.boss
+
+        &&
+
+        game.boss.rooted > 0
+
+    ){
+
+        return;
+
+    }
+
+    oldBossMove();
+
+};
+
+// ========================================
+// ALLIED SOUL AI
+// ========================================
+
+function updateAllySouls(){
+
+    game.souls
+    .forEach(soul=>{
+
+        if(
+            soul.owner !==
+            "player"
+        ){
+            return;
+        }
+
+        if(
+            !game.boss
+        ){
+            return;
+        }
+
+        const dx =
+
+        game.boss.x
+        -
+        soul.x;
+
+        soul.vx =
+
+        Math.sign(dx)
+        *2.5;
+
+        soul.x +=
+        soul.vx;
+
+        if(
+
+            rectsIntersect(
+
+                soul,
+
+                game.boss
+
+            )
+
+        ){
+
+            damageTarget(
+
+                soul,
+
+                game.boss,
+
+                soul.atk
+
+            );
+
+        }
+
+    });
+
+}
+
+// ========================================
+// PHASE 3
+// SACRIFICE
+// ========================================
+
+function bossSoulSacrifice(){
+
+    const boss =
+    game.boss;
+
+    addLog(
+        "Binded Soul Sacrifice For The King"
+    );
+
+    addEffect({
+
+        type:"bossSacrifice",
+
+        x:boss.x,
+
+        y:boss.y,
+
+        radius:220,
+
+        life:80
+
+    });
+
+    setTimeout(()=>{
+
+        if(
+
+            game.player
+
+            &&
+
+            game.player.alive
+
+        ){
+
+            const distance =
+
+            Math.abs(
+
+                game.player.x
+                -
+                boss.x
+
+            );
+
+            if(
+                distance < 220
+            ){
+
+                damageTarget(
+
+                    boss,
+
+                    game.player,
+
+                    80
+
+                );
+
+            }
+
+        }
+
+    },1200);
+
+}
+
+// ========================================
+// BETTER PHASE 3 AI
+// ========================================
+
+const oldBossAI =
+updateBossAI;
+
+updateBossAI =
+function(){
+
+    oldBossAI();
+
+    const boss =
+    game.boss;
+
+    if(
+        !boss
+    ) return;
+
+    if(
+        boss.phase !== 3
+    ) return;
+
+    if(
+
+        Math.random()
+        < 0.002
+
+    ){
+
+        bossSoulSacrifice();
+
+    }
+
+};
+
+// ========================================
+// DRAW EXTRA EFFECT
+// ========================================
+
+const oldDrawEffectsPart9 =
+drawEffects;
+
+drawEffects =
+function(){
+
+    oldDrawEffectsPart9();
+
+    game.effects.forEach(
+        effect=>{
+
+            if(
+                effect.type ===
+                "bossSacrifice"
+            ){
+
+                ctx.strokeStyle =
+                "#ff3366";
+
+                ctx.lineWidth =
+                6;
+
+                ctx.beginPath();
+
+                ctx.arc(
+
+                    effect.x,
+
+                    effect.y,
+
+                    effect.radius,
+
+                    0,
+
+                    Math.PI*2
+
+                );
+
+                ctx.stroke();
+
+            }
+
+        }
+    );
+
+};
+
+// ========================================
+// VICTORY OVERRIDE
+// ========================================
+
+loseBattle =
+function(){
+
+    game.running =
+    false;
+
+    playDefeatSound();
+
+    addLog(
+        "DEFEAT"
+    );
+
+    setTimeout(()=>{
+
+        alert(
+            "Defeat"
+        );
+
+    },500);
+
+};
+
+winBattle =
+function(){
+
+    game.running =
+    false;
+
+    playVictorySound();
+
+    saveData
+    .beatenDarklord++;
+
+    saveData.fragments += 10;
+
+    checkCharacterUnlocks();
+
+    saveGame();
+
+    addLog(
+        "VICTORY"
+    );
+
+    setTimeout(()=>{
+
+        alert(
+
+            "Victory!\n+10 Soul Fragments"
+
+        );
+
+    },500);
+
+};
+
+// ========================================
+// HUD UPDATE
+// ========================================
+
+const oldUpdateHUDPart9 =
+updateHUD;
+
+updateHUD =
+function(){
+
+    oldUpdateHUDPart9();
+
+    const player =
+    game.player;
+
+    if(!player)
+        return;
+
+    let extra = "";
+
+    if(
+        player.name ===
+        "HN Broken Wings"
+    ){
+
+        extra +=
+
+        "<br>GF: "
+
+        +
+
+        player.goldenFeather;
+
+    }
+
+    if(
+        player.name ===
+        "LN Darklord"
+    ){
+
+        extra +=
+
+        "<br>Stacks: "
+
+        +
+
+        player.soulStacks;
+
+    }
+
+    const statusEl =
+
+    document
+    .getElementById(
+        "statusText"
+    );
+
+    if(statusEl){
+
+        statusEl.innerHTML +=
+        extra;
+
+    }
+
+};
+
+// ========================================
+// FINAL UPDATE EXTENSION
+// ========================================
+
+const oldUpdateGame6 =
+updateGame;
+
+updateGame =
+function(){
+
+    if(paused)
+        return;
+
+    oldUpdateGame6();
+
+    updateRootSystem();
+
+    updateAllySouls();
+
+};
+
+// ========================================
+// GAME COMPLETE CORE
+// ========================================
+
+addLog(
+    "Core Combat Ready."
+);
+
+/*
+========================================
+PART 9 END
+========================================
+
+NEXT PART 10:
+
+- Final Polish
+- Character Selection UI
+- LN Darklord Dialogue
+- Intro Story Cutscene
+- Boss Intro Cutscene
+- Save Slot UI
+- Mobile Controls
+- Settings Menu
+- Performance Optimization
+
+Sau Part 10 game sẽ ở trạng thái
+alpha-playable hoàn chỉnh.
+========================================
+*/
+// ========================================
+// PART 10
+// POLISH + CUTSCENE + MOBILE
+// ========================================
+
+// ========================================
+// STORY INTRO
+// ========================================
+
+const STORY_INTRO = [
+
+"20 years ago...",
+
+"A friend disappeared.",
+
+"A tower remained.",
+
+"And the Black Sword never stopped calling.",
+
+"The Multiverse is breaking.",
+
+"The past is waiting."
+
+];
+
+// ========================================
+// CUTSCENE SYSTEM
+// ========================================
+
+const cutscene = {
+
+    active:false,
+
+    lines:[],
+
+    index:0,
+
+    timer:0
+
+};
+
+function startCutscene(lines){
+
+    cutscene.active = true;
+
+    cutscene.lines = lines;
+
+    cutscene.index = 0;
+
+    cutscene.timer = 240;
+
+}
+
+function updateCutscene(){
+
+    if(!cutscene.active)
+        return;
+
+    cutscene.timer--;
+
+    if(cutscene.timer <= 0){
+
+        cutscene.index++;
+
+        cutscene.timer = 240;
+
+    }
+
+    if(
+
+        cutscene.index >=
+        cutscene.lines.length
+
+    ){
+
+        cutscene.active = false;
+
+    }
+
+}
+
+// ========================================
+// DARKLORD SPECIAL DIALOGUE
+// ========================================
+
+function getDarklordDialogue(){
+
+    const player =
+    game.player;
+
+    if(!player)
+        return [];
+
+    switch(player.name){
+
+        case "LN Betrayed":
+
+            return [
+
+                "You still carry that face...",
+
+                "So this is who I once was.",
+
+                "The chain was never meant for you."
+
+            ];
+
+        case "HN Broken Wings":
+
+            return [
+
+                "Even with broken wings...",
+
+                "You still dare to fly?"
+
+            ];
+
+        default:
+
+            return [
+
+                "Another challenger.",
+
+                "Come."
+
+            ];
+
+    }
+
+}
+
+// ========================================
+// BOSS INTRO
+// ========================================
+
+function startBossIntro(){
+
+    startCutscene(
+
+        getDarklordDialogue()
+
+    );
+
+}
+
+// ========================================
+// MOBILE CONTROLS
+// ========================================
+
+const mobile = {
+
+    left:false,
+
+    right:false,
+
+    jump:false,
+
+    skill:false
+
+};
+
+function createMobileControls(){
+
+    if(
+
+        window.innerWidth > 900
+
+    ){
+        return;
+    }
+
+    const wrap =
+    document.createElement("div");
+
+    wrap.id = "mobileControls";
+
+    wrap.innerHTML = `
+
+        <div id="leftBtn">◀</div>
+
+        <div id="rightBtn">▶</div>
+
+        <div id="jumpBtn">▲</div>
+
+        <div id="attackBtn">⚔</div>
+
+    `;
+
+    wrap.style.cssText = `
+        position:fixed;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index:999;
+        display:flex;
+        justify-content:space-around;
+        padding:10px;
+    `;
+
+    document.body.appendChild(
+        wrap
+    );
+
+}
+
+createMobileControls();
+
+// ========================================
+// SETTINGS
+// ========================================
+
+const SETTINGS = {
+
+    particles:true,
+
+    shadows:true,
+
+    screenshake:true,
+
+    fpsCounter:true,
+
+    performanceMode:false
+
+};
+
+// ========================================
+// FPS
+// ========================================
+
+let fps = 0;
+
+let lastFrame =
+performance.now();
+
+function updateFPS(){
+
+    const now =
+    performance.now();
+
+    fps = Math.round(
+
+        1000 /
+
+        (now-lastFrame)
+
+    );
+
+    lastFrame = now;
+
+}
+
+// ========================================
+// SIMPLE FPS DRAW
+// ========================================
+
+function drawFPS(){
+
+    if(
+        !SETTINGS.fpsCounter
+    ) return;
+
+    ctx.fillStyle =
+    "#ffffff";
+
+    ctx.font =
+    "16px Arial";
+
+    ctx.fillText(
+
+        "FPS: "+fps,
+
+        15,
+
+        20
+
+    );
+
+}
+
+// ========================================
+// LORE PANEL
+// ========================================
+
+function getCharacterLore(name){
+
+    switch(name){
+
+        case "LN Betrayed":
+
+            return
+            "20 years before becoming Darklord.";
+
+        case "LN Darklord":
+
+            return
+            "The King of Darkness.";
+
+        case "HN Broken Wings":
+
+            return
+            "The broken wing still flies.";
+
+        default:
+
+            return
+            "A traveler of the Multiverse.";
+
+    }
+
+}
+
+// ========================================
+// COLLECTION UPGRADE
+// ========================================
+
+const oldRenderCollectionPart10 =
+renderCollection;
+
+renderCollection = function(){
+
+    oldRenderCollectionPart10();
+
+    document
+    .querySelectorAll(
+        ".characterCard"
+    )
+    .forEach(card=>{
+
+        const name =
+        card.querySelector(
+            ".charName"
+        )?.textContent;
+
+        if(!name)
+            return;
+
+        const lore =
+        document.createElement(
+            "div"
+        );
+
+        lore.style.marginTop =
+        "10px";
+
+        lore.style.fontSize =
+        "12px";
+
+        lore.style.color =
+        "#97a0bf";
+
+        lore.textContent =
+        getCharacterLore(
+            name
+        );
+
+        card.appendChild(
+            lore
+        );
+
+    });
+
+};
+
+// ========================================
+// PAUSE OVERLAY
+// ========================================
+
+function drawPauseOverlay(){
+
+    if(!paused)
+        return;
+
+    ctx.fillStyle =
+
+    "rgba(0,0,0,.7)";
+
+    ctx.fillRect(
+
+        0,
+        0,
+
+        canvas.width,
+        canvas.height
+
+    );
+
+    ctx.fillStyle =
+    "#ffffff";
+
+    ctx.font =
+    "bold 50px Arial";
+
+    ctx.fillText(
+
+        "PAUSED",
+
+        canvas.width/2-100,
+
+        canvas.height/2
+
+    );
+
+}
+
+// ========================================
+// CUTSCENE DRAW
+// ========================================
+
+function drawCutscene(){
+
+    if(
+        !cutscene.active
+    ) return;
+
+    ctx.fillStyle =
+
+    "rgba(0,0,0,.75)";
+
+    ctx.fillRect(
+
+        0,
+        0,
+
+        canvas.width,
+
+        canvas.height
+
+    );
+
+    const text =
+
+    cutscene.lines[
+        cutscene.index
+    ];
+
+    ctx.fillStyle =
+    "#f4c95d";
+
+    ctx.font =
+    "bold 38px Arial";
+
+    ctx.fillText(
+
+        text,
+
+        120,
+
+        canvas.height/2
+
+    );
+
+}
+
+// ========================================
+// GAME OVER DRAW
+// ========================================
+
+function drawGameResult(){
+
+    if(
+        game.running
+    ) return;
+
+    if(
+        !game.player
+    ) return;
+
+    if(
+        game.boss &&
+        game.boss.currentHP <= 0
+    ){
+
+        ctx.fillStyle =
+        "rgba(0,0,0,.7)";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        ctx.fillStyle =
+        "#f4c95d";
+
+        ctx.font =
+        "bold 64px Arial";
+
+        ctx.fillText(
+
+            "VICTORY",
+
+            400,
+
+            300
+
+        );
+
+    }
+    else{
+
+        ctx.fillStyle =
+        "rgba(0,0,0,.7)";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        ctx.fillStyle =
+        "#ff6565";
+
+        ctx.font =
+        "bold 64px Arial";
+
+        ctx.fillText(
+
+            "DEFEAT",
+
+            420,
+
+            300
+
+        );
+
+    }
+
+}
+
+// ========================================
+// PERFORMANCE MODE
+// ========================================
+
+function optimizeParticles(){
+
+    if(
+        !SETTINGS.performanceMode
+    ) return;
+
+    if(
+        game.effects.length > 20
+    ){
+
+        game.effects.length = 20;
+
+    }
+
+}
+
+// ========================================
+// FINAL UPDATE
+// ========================================
+
+const oldUpdateGame7 =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdateGame7();
+
+    updateFPS();
+
+    updateCutscene();
+
+    optimizeParticles();
+
+};
+
+// ========================================
+// FINAL RENDER
+// ========================================
+
+const oldRenderGame3 =
+renderGame;
+
+renderGame = function(){
+
+    oldRenderGame3();
+
+    drawFPS();
+
+    drawPauseOverlay();
+
+    drawCutscene();
+
+    drawGameResult();
+
+};
+
+// ========================================
+// START DUNGEON OVERRIDE
+// ========================================
+
+const oldStartDungeon =
+startDungeon;
+
+startDungeon = function(){
+
+    oldStartDungeon();
+
+    startBossIntro();
+
+};
+
+// ========================================
+// ALPHA COMPLETE
+// ========================================
+
+addLog(
+    "Alpha Build Ready."
+);
+
+addLog(
+    "The Revenge of Old Friend loaded."
+);
+
+addLog(
+    "LN Darklord is waiting."
+);
+
+/*
+========================================
+PART 10 END
+========================================
+
+ALPHA BUILD COMPLETE
+
+Current Features:
+
+✅ Intro
+✅ Audio
+✅ Save Data
+✅ Collection
+✅ Dungeon
+✅ Boss Fight
+✅ LN Betrayed
+✅ HN Broken Wings
+✅ LN Darklord Playable
+✅ Realtime Combat
+✅ Collision
+✅ Damage
+✅ Boss AI
+✅ Souls AI
+✅ Cutscenes
+✅ Mobile Controls
+✅ HUD
+✅ Victory / Defeat
+
+NEXT MAJOR UPDATE:
+
+Part 11
+- Bug Fix Pass
+- Full Sprite System
+- Skill Icons
+- Better Boss Mechanics
+- Secret Ending
+- HN Broken Wings Story Route
+========================================
+*/
+// ========================================
+// PART 11
+// POLISH + BUGFIX + SECRET SYSTEM
+// ========================================
+
+// ========================================
+// DODGE SYSTEM
+// ========================================
+
+function useDodge(){
+
+    const player =
+    game.player;
+
+    if(!player) return;
+
+    if(player.dodgeCD > 0)
+        return;
+
+    player.dodgeCD = 120;
+
+    player.invFrames = 45;
+
+    player.vx +=
+
+        player.facingRight
+
+        ? 12
+
+        : -12;
+
+    addLog(
+        "Dodge"
+    );
+
+}
+
+window.addEventListener(
+    "keydown",
+    e=>{
+
+        if(
+            e.key.toLowerCase()
+            ===
+            "k"
+        ){
+
+            useDodge();
+
+        }
+
+    }
+);
+
+// ========================================
+// DODGE UPDATE
+// ========================================
+
+function updateDodge(){
+
+    const p =
+    game.player;
+
+    if(!p) return;
+
+    if(
+        p.dodgeCD > 0
+    ){
+
+        p.dodgeCD--;
+
+    }
+
+}
+
+// ========================================
+// PLAYER DIRECTION
+// ========================================
+
+const oldPhysicsPart11 =
+updatePlayerPhysics;
+
+updatePlayerPhysics =
+function(){
+
+    oldPhysicsPart11();
+
+    const p =
+    game.player;
+
+    if(!p) return;
+
+    if(
+        p.vx > 0.1
+    ){
+
+        p.facingRight = true;
+
+    }
+
+    if(
+        p.vx < -0.1
+    ){
+
+        p.facingRight = false;
+
+    }
+
+};
+
+// ========================================
+// HURT EFFECT
+// ========================================
+
+function updateBossFlash(){
+
+    if(
+        !game.boss
+    ) return;
+
+    if(
+        game.boss.invFrames > 0
+    ){
+
+        game.boss.flash = true;
+
+    }else{
+
+        game.boss.flash = false;
+
+    }
+
+}
+
+// ========================================
+// DRAW BOSS OVERRIDE
+// ========================================
+
+drawBoss = function(){
+
+    const boss =
+    game.boss;
+
+    if(
+        !boss
+        ||
+        !boss.alive
+    ) return;
+
+    drawRect(
+
+        boss.x,
+
+        boss.y,
+
+        boss.w,
+
+        boss.h,
+
+        boss.flash
+
+        ?
+
+        "#ffffff"
+
+        :
+
+        "#8f3566"
+
+    );
+
+};
+
+// ========================================
+// PROJECTILE FIX
+// ========================================
+
+const oldSpawnProjectile =
+spawnProjectile;
+
+spawnProjectile =
+function(data){
+
+    oldSpawnProjectile(data);
+
+    const p =
+
+    game.projectiles[
+        game.projectiles.length
+        - 1
+    ];
+
+    p.hit = false;
+
+};
+
+// ========================================
+// FEATHER STACK FIX
+// ========================================
+
+const oldUpdateProjectileFix =
+updateProjectiles;
+
+updateProjectiles =
+function(){
+
+    oldUpdateProjectileFix();
+
+    game.projectiles
+    .forEach(projectile=>{
+
+        if(
+            projectile.hit
+        ){
+            return;
+        }
+
+        if(
+
+            projectile.type
+            ===
+            "goldenFeather"
+
+            &&
+
+            game.boss
+
+            &&
+
+            rectsIntersect(
+
+                projectile,
+
+                game.boss
+
+            )
+
+        ){
+
+            projectile.hit =
+            true;
+
+            addFeatherMark(
+
+                game.boss,
+
+                1
+
+            );
+
+        }
+
+    });
+
+};
+
+// ========================================
+// SECRET ENDING TRACKER
+// ========================================
+
+const endingData = {
+
+    mercyRun:false,
+
+    featherMaster:false,
+
+    darklordUnlocked:false
+
+};
+
+function checkSecretEnding(){
+
+    if(
+
+        endingData.mercyRun
+
+        &&
+
+        endingData.featherMaster
+
+    ){
+
+        unlockCharacter(
+
+            "HN Broken Wings"
+
+        );
+
+        addLog(
+
+            "Secret Ending unlocked."
+
+        );
+
+    }
+
+}
+
+// ========================================
+// BOSS DIALOGUE DATABASE
+// ========================================
+
+const DARKLORD_DIALOGUES = {
+
+    intro:[
+
+        "The chain still remains.",
+
+        "Why did you come here?",
+
+        "Turn back."
+
+    ],
+
+    phase2:[
+
+        "You know nothing.",
+
+        "The past should stay buried."
+
+    ],
+
+    phase3:[
+
+        "Enough.",
+
+        "I will end this."
+
+    ],
+
+    victory:[
+
+        "The tower is silent."
+
+    ],
+
+    defeat:[
+
+        "Even now...",
+
+        "I cannot escape fate."
+
+    ]
+
+};
+
+// ========================================
+// PHASE VOICE LINE
+// ========================================
+
+let phase2Triggered =
+false;
+
+let phase3Triggered =
+false;
+
+function updateBossDialogue(){
+
+    const boss =
+    game.boss;
+
+    if(!boss)
+        return;
+
+    if(
+
+        boss.phase === 2
+
+        &&
+
+        !phase2Triggered
+
+    ){
+
+        phase2Triggered =
+        true;
+
+        DARKLORD_DIALOGUES
+        .phase2
+        .forEach(addLog);
+
+    }
+
+    if(
+
+        boss.phase === 3
+
+        &&
+
+        !phase3Triggered
+
+    ){
+
+        phase3Triggered =
+        true;
+
+        DARKLORD_DIALOGUES
+        .phase3
+        .forEach(addLog);
+
+    }
+
+}
+
+// ========================================
+// SKILL ICON DATA
+// ========================================
+
+const SKILL_ICONS = {
+
+    darknessSlash:"⚔",
+
+    pull:"⛓",
+
+    trap:"🕸",
+
+    summon:"👻",
+
+    rift:"🌀",
+
+    burst:"☀",
+
+    protect:"🛡",
+
+    sacrifice:"💀"
+
+};
+
+// ========================================
+// BOSS WARNING
+// ========================================
+
+let bossWarning = "";
+
+function showBossWarning(
+    text
+){
+
+    bossWarning = text;
+
+    setTimeout(()=>{
+
+        bossWarning = "";
+
+    },1500);
+
+}
+
+// ========================================
+// WARNING DRAW
+// ========================================
+
+function drawBossWarning(){
+
+    if(
+        !bossWarning
+    ) return;
+
+    ctx.font =
+    "bold 36px Arial";
+
+    ctx.fillStyle =
+    "#ff5050";
+
+    ctx.fillText(
+
+        bossWarning,
+
+        420,
+
+        100
+
+    );
+
+}
+
+// ========================================
+// FINAL UPDATE
+// ========================================
+
+const oldUpdatePart11 =
+updateGame;
+
+updateGame =
+function(){
+
+    oldUpdatePart11();
+
+    updateDodge();
+
+    updateBossFlash();
+
+    updateBossDialogue();
+
+    checkSecretEnding();
+
+};
+
+// ========================================
+// FINAL RENDER
+// ========================================
+
+const oldRenderPart11 =
+renderGame;
+
+renderGame =
+function(){
+
+    oldRenderPart11();
+
+    drawBossWarning();
+
+};
+
+// ========================================
+// PART 11 COMPLETE
+// ========================================
+
+addLog(
+    "Build v0.11 Ready."
+);
+
+addLog(
+    "Secret Ending System Loaded."
+);
+// ========================================
+// PART 12
+// PROGRESSION SYSTEM
+// ========================================
+
+// ========================================
+// CHARACTER LEVEL
+// ========================================
+
+if(!saveData.characterProgress){
+
+    saveData.characterProgress = {};
+
+}
+
+function getCharacterProgress(name){
+
+    if(
+
+        !saveData
+        .characterProgress[name]
+
+    ){
+
+        saveData
+        .characterProgress[name] = {
+
+            level:1,
+
+            exp:0,
+
+            kills:0
+
+        };
+
+    }
+
+    return saveData
+    .characterProgress[name];
+
+}
+
+// ========================================
+// EXPERIENCE
+// ========================================
+
+function gainCharacterEXP(
+    name,
+    amount
+){
+
+    const progress =
+
+    getCharacterProgress(
+        name
+    );
+
+    progress.exp += amount;
+
+    while(
+
+        progress.exp >=
+
+        progress.level * 100
+
+    ){
+
+        progress.exp -=
+
+        progress.level * 100;
+
+        progress.level++;
+
+        addLog(
+
+            name +
+            " Level Up: "
+            +
+            progress.level
+
+        );
+
+    }
+
+    saveGame();
+
+}
+
+// ========================================
+// ACHIEVEMENTS
+// ========================================
+
+if(!saveData.achievements){
+
+    saveData.achievements = {};
+
+}
+
+function unlockAchievement(id){
+
+    if(
+
+        saveData
+        .achievements[id]
+
+    ){
+
+        return;
+
+    }
+
+    saveData
+    .achievements[id] =
+    true;
+
+    addLog(
+
+        "[Achievement] "
+        +
+        id
+
+    );
+
+}
+
+// ========================================
+// ACHIEVEMENT CHECK
+// ========================================
+
+function checkAchievements(){
+
+    if(
+
+        saveData
+        .beatenDarklord >= 1
+
+    ){
+
+        unlockAchievement(
+            "Old Friend"
+        );
+
+    }
+
+    if(
+
+        saveData
+        .beatenDarklord >= 5
+
+    ){
+
+        unlockAchievement(
+            "Dark King"
+        );
+
+    }
+
+    if(
+
+        saveData.fragments >= 50
+
+    ){
+
+        unlockAchievement(
+            "Broken Angel"
+        );
+
+    }
+
+}
+
+// ========================================
+// GACHA TABLE
+// ========================================
+
+const GACHA_POOL = [
+
+    {
+        name:"MP",
+        chance:40
+    },
+
+    {
+        name:"LN Betrayed",
+        chance:8
+    },
+
+    {
+        name:"LN Darklord",
+        chance:2
+    },
+
+    {
+        name:"HN Broken Wings",
+        chance:1
+    }
+
+];
+
+// ========================================
+// ROLL
+// ========================================
+
+function performRoll(){
+
+    if(
+        saveData.coins < 100
+    ){
+
+        addLog(
+            "Not enough coins."
+        );
+
+        return;
+
+    }
+
+    saveData.coins -= 100;
+
+    const total =
+
+    GACHA_POOL.reduce(
+
+        (sum,item)=>
+
+        sum + item.chance,
+
+        0
+
+    );
+
+    let rng =
+
+    Math.random()
+    * total;
+
+    let result =
+    GACHA_POOL[0];
+
+    for(const unit of GACHA_POOL){
+
+        rng -= unit.chance;
+
+        if(rng <= 0){
+
+            result = unit;
+
+            break;
+
+        }
+
+    }
+
+    unlockCharacter(
+        result.name
+    );
+
+    addLog(
+
+        "Rolled: "
+        +
+        result.name
+
+    );
+
+    refreshProfile();
+
+    saveGame();
+
+}
+
+// ========================================
+// SOUL SHOP
+// ========================================
+
+function buySoulFragmentPack(){
+
+    if(
+        saveData.coins < 500
+    ){
+
+        addLog(
+            "Need 500 Coins"
+        );
+
+        return;
+
+    }
+
+    saveData.coins -= 500;
+
+    saveData.fragments += 5;
+
+    saveGame();
+
+    refreshProfile();
+
+}
+
+// ========================================
+// NEW GAME PLUS
+// ========================================
+
+function unlockNewGamePlus(){
+
+    if(
+
+        saveData
+        .beatenDarklord < 10
+
+    ){
+
+        return;
+
+    }
+
+    saveData.newGamePlus =
+    true;
+
+}
+
+function isNewGamePlus(){
+
+    return !!saveData
+    .newGamePlus;
+
+}
+
+// ========================================
+// SECRET ENDING FLAGS
+// ========================================
+
+if(!saveData.secretFlags){
+
+    saveData.secretFlags = {
+
+        talkedToDarklord:false,
+
+        mercyChoice:false,
+
+        hiddenFeather:false
+
+    };
+
+}
+
+// ========================================
+// STORY FLAGS
+// ========================================
+
+function setStoryFlag(flag){
+
+    saveData
+    .secretFlags[flag] =
+    true;
+
+    saveGame();
+
+}
+
+function hasStoryFlag(flag){
+
+    return !!saveData
+    .secretFlags[flag];
+
+}
+
+// ========================================
+// HN ROUTE
+// ========================================
+
+function unlockBrokenWingsRoute(){
+
+    if(
+
+        hasStoryFlag(
+            "hiddenFeather"
+        )
+
+    ){
+
+        unlockCharacter(
+
+            "HN Broken Wings"
+
+        );
+
+        addLog(
+            "A broken wing shines."
+        );
+
+    }
+
+}
+
+// ========================================
+// DARKLORD ROUTE
+// ========================================
+
+function unlockDarklordRoute(){
+
+    if(
+
+        saveData
+        .beatenDarklord >= 5
+
+    ){
+
+        unlockCharacter(
+            "LN Darklord"
+        );
+
+    }
+
+}
+
+// ========================================
+// SAVE VERSION
+// ========================================
+
+saveData.version =
+"0.12";
+
+// ========================================
+// VICTORY REWARD
+// ========================================
+
+const oldWinPart12 =
+winBattle;
+
+winBattle =
+function(){
+
+    oldWinPart12();
+
+    if(
+        game.player
+    ){
+
+        gainCharacterEXP(
+
+            game.player.name,
+
+            100
+
+        );
+
+    }
+
+    checkAchievements();
+
+};
+
+// ========================================
+// DEBUG
+// ========================================
+
+window.maxAccount = ()=>{
+
+    saveData.coins =
+    999999;
+
+    saveData.fragments =
+    999;
+
+    saveData.beatenDarklord =
+    999;
+
+    saveGame();
+
+};
+
+// ========================================
+// COMPLETE
+// ========================================
+
+addLog(
+    "Progression System Loaded."
+);
+
+addLog(
+    "Build Version 0.12"
+);
+
+/*
+========================================
+PART 12 END
+========================================
+
+NEXT (PART 13)
+
+- Sprite Animation System
+- Pixel Art Renderer
+- Character Portraits
+- Boss Portrait UI
+- Cinematic Intro
+- Dialogue Box System
+- Skill Cooldown Bar UI
+- Boss Warning Banner
+- Title Screen Animation
+
+This marks the end
+of Alpha Core.
+========================================
+*/
+// ========================================
+// PART 13
+// CINEMATIC + PORTRAIT + UI
+// ========================================
+
+// ========================================
+// PORTRAIT DATABASE
+// ========================================
+
+const PORTRAITS = {
+
+    "MP":"⚔",
+
+    "LN Betrayed":"⛓",
+
+    "LN Darklord":"👑",
+
+    "HN Broken Wings":"🪽"
+
+};
+
+// ========================================
+// DIALOG SYSTEM
+// ========================================
+
+const dialogueBox = {
+
+    active:false,
+
+    speaker:"",
+
+    text:"",
+
+    portrait:""
+
+};
+
+function showDialogue(
+
+    speaker,
+
+    text
+
+){
+
+    dialogueBox.active =
+    true;
+
+    dialogueBox.speaker =
+    speaker;
+
+    dialogueBox.text =
+    text;
+
+    dialogueBox.portrait =
+
+    PORTRAITS[speaker]
+    || "❔";
+
+}
+
+function hideDialogue(){
+
+    dialogueBox.active =
+    false;
+
+}
+
+// ========================================
+// DRAW DIALOG
+// ========================================
+
+function drawDialogueBox(){
+
+    if(
+        !dialogueBox.active
+    ) return;
+
+    ctx.fillStyle =
+    "rgba(0,0,0,.8)";
+
+    ctx.fillRect(
+
+        40,
+        500,
+
+        1200,
+        170
+
+    );
+
+    ctx.strokeStyle =
+    "#f4c95d";
+
+    ctx.strokeRect(
+
+        40,
+        500,
+        1200,
+        170
+
+    );
+
+    ctx.font =
+    "60px Arial";
+
+    ctx.fillText(
+
+        dialogueBox.portrait,
+
+        70,
+
+        600
+
+    );
+
+    ctx.font =
+    "bold 24px Arial";
+
+    ctx.fillStyle =
+    "#f4c95d";
+
+    ctx.fillText(
+
+        dialogueBox.speaker,
+
+        150,
+
+        545
+
+    );
+
+    ctx.font =
+    "20px Arial";
+
+    ctx.fillStyle =
+    "#ffffff";
+
+    ctx.fillText(
+
+        dialogueBox.text,
+
+        150,
+
+        590
+
+    );
+
+}
+
+// ========================================
+// CAMERA SYSTEM
+// ========================================
+
+const camera = {
+
+    shake:0,
+
+    x:0,
+
+    y:0
+
+};
+
+function shakeCamera(
+    power = 8
+){
+
+    camera.shake =
+    Math.max(
+
+        camera.shake,
+
+        power
+
+    );
+
+}
+
+// ========================================
+// UPDATE SHAKE
+// ========================================
+
+function updateCamera(){
+
+    if(
+        camera.shake > 0
+    ){
+
+        camera.shake -=
+        0.5;
+
+    }
+
+}
+
+// ========================================
+// APPLY CAMERA
+// ========================================
+
+function beginCamera(){
+
+    ctx.save();
+
+    const amount =
+    camera.shake;
+
+    ctx.translate(
+
+        (
+            Math.random()-0.5
+        )
+        * amount,
+
+        (
+            Math.random()-0.5
+        )
+        * amount
+
+    );
+
+}
+
+function endCamera(){
+
+    ctx.restore();
+
+}
+
+// ========================================
+// DAMAGE OVERRIDE
+// ========================================
+
+const oldDamagePart13 =
+damageTarget;
+
+damageTarget = function(
+
+    source,
+    target,
+    damage
+
+){
+
+    oldDamagePart13(
+        source,
+        target,
+        damage
+    );
+
+    shakeCamera(5);
+
+    playHitSound();
+
+};
+
+// ========================================
+// PIXEL CHARACTER DRAW
+// ========================================
+
+function drawPixelCharacter(
+
+    entity,
+
+    primaryColor,
+
+    secondaryColor
+
+){
+
+    ctx.fillStyle =
+    primaryColor;
+
+    ctx.fillRect(
+
+        entity.x + 8,
+        entity.y,
+
+        24,
+        18
+
+    );
+
+    ctx.fillRect(
+
+        entity.x + 4,
+        entity.y + 18,
+
+        32,
+        28
+
+    );
+
+    ctx.fillStyle =
+    secondaryColor;
+
+    ctx.fillRect(
+
+        entity.x + 6,
+        entity.y + 45,
+
+        10,
+        15
+
+    );
+
+    ctx.fillRect(
+
+        entity.x + 24,
+        entity.y + 45,
+
+        10,
+        15
+
+    );
+
+}
+
+// ========================================
+// PLAYER DRAW OVERRIDE
+// ========================================
+
+drawPlayer = function(){
+
+    const p =
+    game.player;
+
+    if(!p)
+        return;
+
+    let bodyColor =
+    "#61e4d8";
+
+    if(
+        p.name ===
+        "LN Betrayed"
+    ){
+
+        bodyColor =
+        "#7a54ff";
+
+    }
+
+    if(
+        p.name ===
+        "LN Darklord"
+    ){
+
+        bodyColor =
+        "#9f316d";
+
+    }
+
+    if(
+        p.name ===
+        "HN Broken Wings"
+    ){
+
+        bodyColor =
+        "#ffd94a";
+
+    }
+
+    drawPixelCharacter(
+
+        p,
+
+        bodyColor,
+
+        "#202020"
+
+    );
+
+};
+
+// ========================================
+// BOSS DRAW OVERRIDE
+// ========================================
+
+drawBoss = function(){
+
+    const boss =
+    game.boss;
+
+    if(
+        !boss
+        ||
+        !boss.alive
+    ) return;
+
+    drawPixelCharacter(
+
+        boss,
+
+        boss.flash
+        ?
+        "#ffffff"
+        :
+        "#892357",
+
+        "#111111"
+
+    );
+
+};
+
+// ========================================
+// HEALTH COLOR
+// ========================================
+
+function updateHealthBars(){
+
+    const player =
+    game.player;
+
+    const boss =
+    game.boss;
+
+    if(player){
+
+        const hp =
+
+        player.currentHP /
+
+        player.hp;
+
+        const fill =
+        document
+        .getElementById(
+            "playerBar"
+        );
+
+        if(hp > 0.6){
+
+            fill.style.background =
+            "#47d67b";
+
+        }
+        else
+        if(hp > 0.3){
+
+            fill.style.background =
+            "#f4c95d";
+
+        }
+        else{
+
+            fill.style.background =
+            "#ff5252";
+
+        }
+
+    }
+
+    if(boss){
+
+        const hp =
+
+        boss.currentHP /
+
+        boss.hp;
+
+        const fill =
+        document
+        .getElementById(
+            "bossBar"
+        );
+
+        if(hp > 0.6){
+
+            fill.style.background =
+            "#ff6a7a";
+
+        }
+        else
+        if(hp > 0.3){
+
+            fill.style.background =
+            "#f49862";
+
+        }
+        else{
+
+            fill.style.background =
+            "#b00030";
+
+        }
+
+    }
+
+}
+
+// ========================================
+// ANNOUNCEMENT
+// ========================================
+
+let announcement = "";
+let announcementTimer = 0;
+
+function showAnnouncement(
+    text
+){
+
+    announcement =
+    text;
+
+    announcementTimer =
+    180;
+
+}
+
+function updateAnnouncement(){
+
+    if(
+        announcementTimer > 0
+    ){
+
+        announcementTimer--;
+
+    }
+
+}
+
+function drawAnnouncement(){
+
+    if(
+        announcementTimer <= 0
+    ) return;
+
+    ctx.font =
+    "bold 42px Arial";
+
+    ctx.fillStyle =
+    "#f4c95d";
+
+    ctx.fillText(
+
+        announcement,
+
+        320,
+
+        120
+
+    );
+
+}
+
+// ========================================
+// BOSS ENTRANCE
+// ========================================
+
+function startBossEntrance(){
+
+    showAnnouncement(
+
+        "LN DARKLORD"
+
+    );
+
+    setTimeout(()=>{
+
+        showDialogue(
+
+            "LN Darklord",
+
+            "Why did you come here?"
+
+        );
+
+    },1500);
+
+    setTimeout(()=>{
+
+        hideDialogue();
+
+    },5000);
+
+}
+
+// ========================================
+// DUNGEON START OVERRIDE
+// ========================================
+
+const oldStartDungeonPart13 =
+startDungeon;
+
+startDungeon = function(){
+
+    oldStartDungeonPart13();
+
+    startBossEntrance();
+
+};
+
+// ========================================
+// UPDATE
+// ========================================
+
+const oldUpdatePart13 =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdatePart13();
+
+    updateCamera();
+
+    updateAnnouncement();
+
+    updateHealthBars();
+
+};
+
+// ========================================
+// RENDER
+// ========================================
+
+const oldRenderPart13 =
+renderGame;
+
+renderGame = function(){
+
+    beginCamera();
+
+    oldRenderPart13();
+
+    endCamera();
+
+    drawAnnouncement();
+
+    drawDialogueBox();
+
+};
+
+// ========================================
+// TITLE MESSAGE
+// ========================================
+
+showAnnouncement(
+    "MULTIVERSE AWAKENS"
+);
+
+addLog(
+    "Part 13 Loaded."
+);
+
+/*
+========================================
+PART 13 END
+========================================
+
+BETA BUILD STATUS
+
+✅ Realtime Combat
+✅ Boss AI
+✅ Dialogue UI
+✅ Camera Shake
+✅ Portraits
+✅ Pixel Characters
+✅ Health States
+✅ Announcement System
+✅ Cutscenes
+✅ Progression
+✅ Unlock Characters
+
+NEXT:
+PART 14
+
+- Skill Cooldown Icons
+- Combo Counter
+- Damage Statistics
+- Boss Encyclopedia
+- Secret Boss Framework
+- Save Slots
+- True Ending Route
+- Mirror Space Dungeon
+========================================
+*/
+// ========================================
+// PART 14
+// COMBAT UI EXPANSION
+// ========================================
+
+// ========================================
+// COMBO SYSTEM
+// ========================================
+
+const comboSystem = {
+
+    combo:0,
+
+    timer:0,
+
+    maxCombo:0
+
+};
+
+function addCombo(){
+
+    comboSystem.combo++;
+
+    comboSystem.timer = 180;
+
+    comboSystem.maxCombo =
+
+    Math.max(
+
+        comboSystem.maxCombo,
+
+        comboSystem.combo
+
+    );
+
+}
+
+function updateCombo(){
+
+    if(comboSystem.timer > 0){
+
+        comboSystem.timer--;
+
+    }
+    else{
+
+        comboSystem.combo = 0;
+
+    }
+
+}
+
+// ========================================
+// DAMAGE STATISTICS
+// ========================================
+
+const damageStats = {
+
+    totalDamage:0,
+
+    highestHit:0,
+
+    dpsWindow:0,
+
+    dpsDamage:0,
+
+    currentDPS:0
+
+};
+
+const oldDamagePart14 =
+damageTarget;
+
+damageTarget =
+function(
+    source,
+    target,
+    damage
+){
+
+    oldDamagePart14(
+        source,
+        target,
+        damage
+    );
+
+    if(
+        source === game.player
+    ){
+
+        damageStats.totalDamage += damage;
+
+        damageStats.dpsDamage += damage;
+
+        damageStats.highestHit =
+
+        Math.max(
+
+            damageStats.highestHit,
+
+            damage
+
+        );
+
+        addCombo();
+
+    }
+
+};
+
+// ========================================
+// DPS CALC
+// ========================================
+
+function updateDPS(){
+
+    damageStats.dpsWindow++;
+
+    if(
+        damageStats.dpsWindow >= 60
+    ){
+
+        damageStats.currentDPS =
+
+        damageStats.dpsDamage;
+
+        damageStats.dpsDamage = 0;
+
+        damageStats.dpsWindow = 0;
+
+    }
+
+}
+
+// ========================================
+// SKILL BAR
+// ========================================
+
+const skillHUD = {
+
+    enabled:true
+
+};
+
+function getSkillList(){
+
+    const player =
+    game.player;
+
+    if(!player)
+        return [];
+
+    if(
+        player.name ===
+        "LN Betrayed"
+    ){
+
+        return [
+
+            {
+                key:"J",
+                name:"Slash",
+                cd:
+                player.cooldowns.darknessSlash
+            },
+
+            {
+                key:"1",
+                name:"Pull",
+                cd:
+                player.cooldowns.chainsPull
+            },
+
+            {
+                key:"2",
+                name:"Trap",
+                cd:
+                player.cooldowns.chainsTrap
+            },
+
+            {
+                key:"3",
+                name:"Soul",
+                cd:
+                player.cooldowns.bindedSoul
+            },
+
+            {
+                key:"R",
+                name:"Rift",
+                cd:
+                player.cooldowns.multiversalRift
+            }
+
+        ];
+
+    }
+
+    if(
+        player.name ===
+        "HN Broken Wings"
+    ){
+
+        return [
+
+            {
+                key:"J",
+                name:"Feather",
+                cd:
+                player.cooldowns.featherThrow
+            },
+
+            {
+                key:"1",
+                name:"Protect",
+                cd:
+                player.cooldowns.featherProtect
+            },
+
+            {
+                key:"2",
+                name:"Burst",
+                cd:
+                player.cooldowns.goldenBurst
+            },
+
+            {
+                key:"3",
+                name:"Fly",
+                cd:
+                player.cooldowns.brokenFly
+            }
+
+        ];
+
+    }
+
+    if(
+        player.name ===
+        "LN Darklord"
+    ){
+
+        return [
+
+            {
+                key:"J",
+                name:"Slash",
+                cd:
+                player.cooldowns.darknessSlash
+            },
+
+            {
+                key:"1",
+                name:"Pull",
+                cd:
+                player.cooldowns.chainsPull
+            },
+
+            {
+                key:"2",
+                name:"Trap",
+                cd:
+                player.cooldowns.chainsTrap
+            },
+
+            {
+                key:"3",
+                name:"Soul",
+                cd:
+                player.cooldowns.bindedSoul
+            },
+
+            {
+                key:"F",
+                name:"Ultimate",
+                cd:
+                player.cooldowns.sacrifice
+            }
+
+        ];
+
+    }
+
+    return [];
+
+}
+
+// ========================================
+// DRAW SKILL BAR
+// ========================================
+
+function drawSkillHUD(){
+
+    const skills =
+    getSkillList();
+
+    let startX = 260;
+
+    skills.forEach(
+        (skill,index)=>{
+
+            const x =
+            startX +
+            index * 115;
+
+            const y =
+            canvas.height - 80;
+
+            ctx.fillStyle =
+            "#252c47";
+
+            ctx.fillRect(
+                x,
+                y,
+                100,
+                60
+            );
+
+            ctx.strokeStyle =
+            "#f4c95d";
+
+            ctx.strokeRect(
+                x,
+                y,
+                100,
+                60
+            );
+
+            ctx.fillStyle =
+            "#ffffff";
+
+            ctx.font =
+            "14px Arial";
+
+            ctx.fillText(
+                skill.key,
+                x+8,
+                y+18
+            );
+
+            ctx.fillText(
+                skill.name,
+                x+8,
+                y+38
+            );
+
+            if(skill.cd > 0){
+
+                ctx.fillStyle =
+
+                "rgba(0,0,0,.6)";
+
+                ctx.fillRect(
+                    x,
+                    y,
+                    100,
+                    60
+                );
+
+                ctx.fillStyle =
+                "#ff5e75";
+
+                ctx.fillText(
+
+                    Math.ceil(
+                        skill.cd / 60
+                    ),
+
+                    x+45,
+
+                    y+35
+                );
+
+            }
+
+        }
+    );
+
+}
+
+// ========================================
+// BOSS ENCYCLOPEDIA
+// ========================================
+
+const BOSS_ENCYCLOPEDIA = {
+
+    "LN Darklord":{
+
+        hp:1000,
+
+        phases:3,
+
+        title:
+        "The King of Darkness",
+
+        weakness:
+        "Sustained Damage",
+
+        reward:
+        "Soul Fragments"
+
+    }
+
+};
+
+// ========================================
+// BEST RUN
+// ========================================
+
+if(
+    !saveData.bestRun
+){
+
+    saveData.bestRun = {
+
+        fastestClear:999999,
+
+        highestCombo:0
+
+    };
+
+}
+
+function recordRun(time){
+
+    saveData.bestRun.fastestClear =
+
+    Math.min(
+
+        saveData.bestRun.fastestClear,
+
+        time
+
+    );
+
+    saveData.bestRun.highestCombo =
+
+    Math.max(
+
+        saveData.bestRun.highestCombo,
+
+        comboSystem.maxCombo
+
+    );
+
+}
+
+// ========================================
+// COMBAT GRADE
+// ========================================
+
+function calculateBattleGrade(){
+
+    const combo =
+    comboSystem.maxCombo;
+
+    if(combo >= 100)
+        return "SS";
+
+    if(combo >= 70)
+        return "S";
+
+    if(combo >= 40)
+        return "A";
+
+    if(combo >= 20)
+        return "B";
+
+    return "C";
+
+}
+
+// ========================================
+// DRAW STATS
+// ========================================
+
+function drawCombatStats(){
+
+    ctx.fillStyle =
+    "#ffffff";
+
+    ctx.font =
+    "14px Arial";
+
+    ctx.fillText(
+
+        "Combo: "
+        +
+        comboSystem.combo,
+
+        15,
+        40
+
+    );
+
+    ctx.fillText(
+
+        "DPS: "
+        +
+        damageStats.currentDPS,
+
+        15,
+        60
+
+    );
+
+    ctx.fillText(
+
+        "Highest Hit: "
+        +
+        damageStats.highestHit,
+
+        15,
+        80
+
+    );
+
+}
+
+// ========================================
+// UPDATE
+// ========================================
+
+const oldUpdatePart14 =
+updateGame;
+
+updateGame =
+function(){
+
+    oldUpdatePart14();
+
+    updateCombo();
+
+    updateDPS();
+
+};
+
+// ========================================
+// RENDER
+// ========================================
+
+const oldRenderPart14 =
+renderGame;
+
+renderGame =
+function(){
+
+    oldRenderPart14();
+
+    drawSkillHUD();
+
+    drawCombatStats();
+
+};
+
+// ========================================
+// BUILD INFO
+// ========================================
+
+addLog(
+    "Part 14 Loaded."
+);
+
+addLog(
+    "Combat HUD Upgraded."
+);
+
+/*
+========================================
+PART 14 END
+========================================
+
+PART 15
+- Sprite Animation Framework
+- Animation States
+- Dash Trail
+- Rift Visual Upgrade
+- Boss Aura System
+- Golden Feather Orbit Visual
+- Darklord Soul Aura
+- Pixel VFX Engine
+
+BETA BUILD 0.14
+========================================
+*/
+// ========================================
+// PART 15
+// VFX + ANIMATION FRAMEWORK
+// ========================================
+
+// ========================================
+// ANIMATION STATE
+// ========================================
+
+function updateAnimationState(){
+
+    const player =
+    game.player;
+
+    if(!player) return;
+
+    if(
+        Math.abs(player.vx) > 1
+    ){
+
+        player.animState =
+        "run";
+
+    }
+    else{
+
+        player.animState =
+        "idle";
+
+    }
+
+    if(
+        !player.onGround
+    ){
+
+        player.animState =
+        "jump";
+
+    }
+
+}
+
+// ========================================
+// PARTICLE ENGINE
+// ========================================
+
+if(!game.particles){
+
+    game.particles = [];
+
+}
+
+function spawnParticle(data){
+
+    game.particles.push({
+
+        x:data.x,
+
+        y:data.y,
+
+        vx:data.vx || 0,
+
+        vy:data.vy || 0,
+
+        color:data.color || "#ffffff",
+
+        size:data.size || 4,
+
+        life:data.life || 30
+
+    });
+
+}
+
+function updateParticles(){
+
+    game.particles.forEach(
+        particle=>{
+
+            particle.x +=
+            particle.vx;
+
+            particle.y +=
+            particle.vy;
+
+            particle.life--;
+
+            particle.vy +=
+            0.05;
+
+        }
+    );
+
+    game.particles =
+    game.particles.filter(
+        particle =>
+        particle.life > 0
+    );
+
+}
+
+// ========================================
+// DRAW PARTICLES
+// ========================================
+
+function drawParticles(){
+
+    game.particles.forEach(
+        particle=>{
+
+            ctx.fillStyle =
+            particle.color;
+
+            ctx.fillRect(
+
+                particle.x,
+
+                particle.y,
+
+                particle.size,
+
+                particle.size
+
+            );
+
+        }
+    );
+
+}
+
+// ========================================
+// LANDING DUST
+// ========================================
+
+let lastGroundState =
+true;
+
+function updateLandingEffect(){
+
+    const player =
+    game.player;
+
+    if(!player) return;
+
+    if(
+        !lastGroundState &&
+        player.onGround
+    ){
+
+        for(
+            let i=0;
+            i<10;
+            i++
+        ){
+
+            spawnParticle({
+
+                x:
+                player.x + 20,
+
+                y:
+                player.y + 55,
+
+                vx:
+                (Math.random()-0.5)
+                *4,
+
+                vy:
+                -Math.random()*2,
+
+                color:"#999999",
+
+                size:4,
+
+                life:25
+
+            });
+
+        }
+
+    }
+
+    lastGroundState =
+    player.onGround;
+
+}
+
+// ========================================
+// DASH TRAIL
+// ========================================
+
+function updateDashTrail(){
+
+    const player =
+    game.player;
+
+    if(!player) return;
+
+    if(
+        Math.abs(player.vx) > 8
+    ){
+
+        spawnParticle({
+
+            x:
+            player.x,
+
+            y:
+            player.y+20,
+
+            color:
+            "#66d9ff",
+
+            size:8,
+
+            life:15
+
+        });
+
+    }
+
+}
+
+// ========================================
+// CRITICAL EFFECT
+// ========================================
+
+function spawnCriticalEffect(
+    x,
+    y
+){
+
+    for(
+        let i=0;
+        i<16;
+        i++
+    ){
+
+        spawnParticle({
+
+            x,
+
+            y,
+
+            vx:
+            (Math.random()-0.5)
+            *8,
+
+            vy:
+            (Math.random()-0.5)
+            *8,
+
+            color:"#ffd94d",
+
+            size:5,
+
+            life:40
+
+        });
+
+    }
+
+}
+
+// ========================================
+// GOLDEN FEATHER ORBIT
+// ========================================
+
+function drawGoldenFeathers(){
+
+    const player =
+    game.player;
+
+    if(
+        !player
+    ) return;
+
+    if(
+        player.name
+        !==
+        "HN Broken Wings"
+    ) return;
+
+    const displayed =
+
+    Math.min(
+
+        8,
+
+        Math.floor(
+            player.goldenFeather
+            / 12
+        )
+
+    );
+
+    for(
+        let i=0;
+        i<displayed;
+        i++
+    ){
+
+        const angle =
+
+            (
+                game.frame * 0.03
+            )
+
+            +
+
+            (
+                i *
+                Math.PI*2
+                /
+                displayed
+            );
+
+        const orbitX =
+
+        player.x +
+        20 +
+
+        Math.cos(angle)
+        *40;
+
+        const orbitY =
+
+        player.y +
+        20 +
+
+        Math.sin(angle)
+        *20;
+
+        ctx.fillStyle =
+        "#ffd94d";
+
+        ctx.fillRect(
+
+            orbitX,
+
+            orbitY,
+
+            6,
+
+            6
+
+        );
+
+    }
+
+}
+
+// ========================================
+// DARKLORD AURA
+// ========================================
+
+function drawDarklordAura(){
+
+    const player =
+    game.player;
+
+    if(!player) return;
+
+    if(
+        player.name !==
+        "LN Darklord"
+    ) return;
+
+    const radius =
+
+    50 +
+
+    Math.sin(
+        game.frame * 0.05
+    ) * 10;
+
+    ctx.strokeStyle =
+    "#a020f0";
+
+    ctx.beginPath();
+
+    ctx.arc(
+
+        player.x+20,
+
+        player.y+20,
+
+        radius,
+
+        0,
+
+        Math.PI*2
+
+    );
+
+    ctx.stroke();
+
+}
+
+// ========================================
+// BOSS AURA
+// ========================================
+
+function drawBossAura(){
+
+    const boss =
+    game.boss;
+
+    if(
+        !boss ||
+        !boss.alive
+    ) return;
+
+    ctx.strokeStyle =
+    "#ff4080";
+
+    ctx.lineWidth = 3;
+
+    ctx.beginPath();
+
+    ctx.arc(
+
+        boss.x+40,
+
+        boss.y+40,
+
+        65 +
+
+        Math.sin(
+            game.frame*0.08
+        )*6,
+
+        0,
+
+        Math.PI*2
+
+    );
+
+    ctx.stroke();
+
+}
+
+// ========================================
+// RIFT VISUAL
+// ========================================
+
+function drawAdvancedRift(){
+
+    game.effects.forEach(
+        effect=>{
+
+            if(
+                effect.type !==
+                "rift"
+            ) return;
+
+            for(
+                let i=0;
+                i<8;
+                i++
+            ){
+
+                ctx.strokeStyle =
+                "#c080ff";
+
+                ctx.beginPath();
+
+                ctx.moveTo(
+                    effect.x,
+                    effect.y
+                );
+
+                ctx.lineTo(
+
+                    effect.x +
+
+                    Math.cos(i)
+
+                    *50,
+
+                    effect.y +
+
+                    Math.sin(i)
+
+                    *50
+
+                );
+
+                ctx.stroke();
+
+            }
+
+        }
+    );
+
+}
+
+// ========================================
+// PHASE AURA
+// ========================================
+
+function drawPhaseAura(){
+
+    const boss =
+    game.boss;
+
+    if(!boss)
+        return;
+
+    if(
+        boss.phase === 2
+    ){
+
+        ctx.strokeStyle =
+        "#ff8c42";
+
+        ctx.strokeRect(
+
+            boss.x - 5,
+            boss.y - 5,
+
+            boss.w + 10,
+            boss.h + 10
+
+        );
+
+    }
+
+    if(
+        boss.phase === 3
+    ){
+
+        ctx.strokeStyle =
+        "#ff0000";
+
+        ctx.lineWidth = 5;
+
+        ctx.strokeRect(
+
+            boss.x - 8,
+            boss.y - 8,
+
+            boss.w + 16,
+            boss.h + 16
+
+        );
+
+    }
+
+}
+
+// ========================================
+// BATTLE RANK POPUP
+// ========================================
+
+function showRankPopup(rank){
+
+    showAnnouncement(
+
+        rank + " RANK"
+
+    );
+
+}
+
+// ========================================
+// COMBO MILESTONE
+// ========================================
+
+let comboMilestone = 0;
+
+function updateComboMilestone(){
+
+    if(
+        comboSystem.combo >=
+        comboMilestone + 25
+    ){
+
+        comboMilestone += 25;
+
+        showRankPopup(
+
+            comboMilestone
+        );
+
+    }
+
+}
+
+// ========================================
+// UPDATE
+// ========================================
+
+const oldUpdatePart15 =
+updateGame;
+
+updateGame =
+function(){
+
+    oldUpdatePart15();
+
+    updateParticles();
+
+    updateAnimationState();
+
+    updateLandingEffect();
+
+    updateDashTrail();
+
+    updateComboMilestone();
+
+};
+
+// ========================================
+// RENDER
+// ========================================
+
+const oldRenderPart15 =
+renderGame;
+
+renderGame =
+function(){
+
+    oldRenderPart15();
+
+    drawParticles();
+
+    drawGoldenFeathers();
+
+    drawDarklordAura();
+
+    drawBossAura();
+
+    drawAdvancedRift();
+
+    drawPhaseAura();
+
+};
+
+// ========================================
+// LOAD
+// ========================================
+
+addLog(
+    "Part 15 Loaded."
+);
+
+addLog(
+    "VFX Framework Ready."
+);
+
+/*
+========================================
+PART 15 END
+========================================
+
+BETA BUILD 0.15
+
+NEW FEATURES
+
+✅ Particle Engine
+✅ Dash Trail
+✅ Landing Dust
+✅ Golden Feather Orbit
+✅ Darklord Aura
+✅ Boss Aura
+✅ Rift Upgrade
+✅ Animation States
+✅ Crit Effect Framework
+✅ Combo Milestones
+
+PART 16
+- Canon Darklord Boss Rework
+- Chains Of Soul Projectile
+- True Boss Mechanics
+- Soul Sacrifice Phase
+- Mirror Space Phase
+- Desperation Mode
+- Secret Boss Prelude
+========================================
+*/
+// ========================================
+// PART 16
+// CANON DARKLORD REWORK
+// ========================================
+
+// ========================================
+// MIRROR SPACE
+// ========================================
+
+game.mirrorSpace = {
+
+    active:false,
+
+    timer:0
+
+};
+
+function activateMirrorSpace(){
+
+    if(
+        game.mirrorSpace.active
+    ) return;
+
+    game.mirrorSpace.active =
+    true;
+
+    game.mirrorSpace.timer =
+    600;
+
+    showAnnouncement(
+        "MIRROR SPACE"
+    );
+
+    addLog(
+        "Reality is breaking."
+    );
+
+}
+
+// ========================================
+// UPDATE MIRROR SPACE
+// ========================================
+
+function updateMirrorSpace(){
+
+    if(
+        !game.mirrorSpace.active
+    ) return;
+
+    game.mirrorSpace.timer--;
+
+    if(
+        game.mirrorSpace.timer <= 0
+    ){
+
+        game.mirrorSpace.active =
+        false;
+
+        addLog(
+            "Mirror Space faded."
+        );
+
+    }
+
+}
+
+// ========================================
+// DRAW MIRROR SPACE
+// ========================================
+
+function drawMirrorSpace(){
+
+    if(
+        !game.mirrorSpace.active
+    ) return;
+
+    ctx.fillStyle =
+    "rgba(80,0,120,.18)";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+}
+
+// ========================================
+// CHAIN PROJECTILE
+// ========================================
+
+function spawnChainProjectile(){
+
+    const boss =
+    game.boss;
+
+    const player =
+    game.player;
+
+    if(
+        !boss ||
+        !player
+    ) return;
+
+    const dx =
+    player.x - boss.x;
+
+    const dy =
+    player.y - boss.y;
+
+    const mag =
+    Math.hypot(dx,dy) || 1;
+
+    game.projectiles.push({
+
+        owner:"boss",
+
+        type:"chain",
+
+        x:boss.x,
+
+        y:boss.y + 30,
+
+        vx:(dx/mag)*7,
+
+        vy:(dy/mag)*7,
+
+        w:30,
+
+        h:10,
+
+        damage:20,
+
+        alive:true
+
+    });
+
+    addLog(
+        "Chains of Soul (Pull)"
+    );
+
+}
+
+// ========================================
+// CHAIN HIT
+// ========================================
+
+function updateChainProjectileLogic(){
+
+    game.projectiles.forEach(
+        projectile=>{
+
+            if(
+                projectile.type !==
+                "chain"
+            ) return;
+
+            if(
+
+                game.player
+
+                &&
+
+                rectsIntersect(
+
+                    projectile,
+
+                    game.player
+
+                )
+
+            ){
+
+                projectile.alive =
+                false;
+
+                const player =
+                game.player;
+
+                player.x =
+
+                game.boss.x - 100;
+
+                damageTarget(
+
+                    game.boss,
+
+                    player,
+
+                    projectile.damage
+
+                );
+
+                showBossWarning(
+                    "SOUL PULL"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+// ========================================
+// IMPROVED DARKNESS SLASH
+// ========================================
+
+function bossDarknessSlash(){
+
+    const boss =
+    game.boss;
+
+    addEffect({
+
+        type:"bossSlash",
+
+        x:boss.x - 450,
+
+        y:boss.y + 20,
+
+        w:550,
+
+        h:70,
+
+        life:18
+
+    });
+
+    spawnHitbox({
+
+        owner:boss,
+
+        x:boss.x - 450,
+
+        y:boss.y + 20,
+
+        w:550,
+
+        h:70,
+
+        damage:55,
+
+        duration:18
+
+    });
+
+    showBossWarning(
+        "DARKNESS SLASH"
+    );
+
+}
+
+// ========================================
+// CHAIN TRAP
+// ========================================
+
+function bossChainTrap(){
+
+    const player =
+    game.player;
+
+    const futureX =
+
+    player.x +
+
+    player.vx * 20;
+
+    game.traps.push({
+
+        owner:"boss",
+
+        x:futureX,
+
+        y:GROUND_Y - 12,
+
+        w:90,
+
+        h:12,
+
+        life:240,
+
+        rootDuration:120
+
+    });
+
+    showBossWarning(
+        "CHAIN TRAP"
+    );
+
+}
+
+// ========================================
+// SOUL SACRIFICE
+// ========================================
+
+function bossUltimateSacrifice(){
+
+    const boss =
+    game.boss;
+
+    addLog(
+      "Binded Soul Sacrifice For The King"
+    );
+
+    activateMirrorSpace();
+
+    addEffect({
+
+        type:"bossUltimate",
+
+        x:boss.x,
+
+        y:boss.y,
+
+        radius:280,
+
+        life:120
+
+    });
+
+    setTimeout(()=>{
+
+        if(
+            !game.player
+        ) return;
+
+        const distance =
+
+        Math.abs(
+
+            game.player.x
+            -
+            boss.x
+
+        );
+
+        if(
+            distance < 280
+        ){
+
+            damageTarget(
+
+                boss,
+
+                game.player,
+
+                100
+
+            );
+
+        }
+
+    },1800);
+
+}
+
+// ========================================
+// DESPERATION MODE
+// ========================================
+
+function updateDesperationMode(){
+
+    const boss =
+    game.boss;
+
+    if(!boss)
+        return;
+
+    const hpPercent =
+
+    boss.currentHP
+    /
+    boss.hp
+    *100;
+
+    if(
+        hpPercent > 10
+    ) return;
+
+    if(
+        boss.desperation
+    ) return;
+
+    boss.desperation =
+    true;
+
+    boss.moveSpeed *=
+    1.5;
+
+    boss.atk =
+    Math.floor(
+        boss.atk * 1.4
+    );
+
+    addLog(
+      "Darklord enters Desperation Mode!"
+    );
+
+    showAnnouncement(
+      "DESPERATION"
+    );
+
+}
+
+// ========================================
+// IMPROVED PHASE 3
+// ========================================
+
+function phaseThreeCombatAI(){
+
+    const boss =
+    game.boss;
+
+    if(
+        !boss
+    ) return;
+
+    if(
+        boss.phase !== 3
+    ) return;
+
+    if(
+
+        Math.random()
+
+        <
+
+        0.003
+
+    ){
+
+        bossUltimateSacrifice();
+
+    }
+
+    if(
+
+        Math.random()
+
+        <
+
+        0.005
+
+    ){
+
+        activateMirrorSpace();
+
+    }
+
+}
+
+// ========================================
+// MIRROR SPACE COLLAPSE
+// ========================================
+
+function updateMirrorCollapse(){
+
+    if(
+        !game.mirrorSpace.active
+    ) return;
+
+    if(
+        game.frame % 45 !== 0
+    ) return;
+
+    spawnParticle({
+
+        x:
+        Math.random()
+        * canvas.width,
+
+        y:0,
+
+        vy:
+        5 +
+
+        Math.random()*3,
+
+        color:"#c080ff",
+
+        size:6,
+
+        life:120
+
+    });
+
+}
+
+// ========================================
+// PARTICLE DAMAGE
+// ========================================
+
+function updateMirrorHazard(){
+
+    if(
+        !game.mirrorSpace.active
+    ) return;
+
+    game.particles.forEach(
+        particle=>{
+
+            if(
+                particle.color
+                !==
+                "#c080ff"
+            ) return;
+
+            const hitbox = {
+
+                x:particle.x,
+
+                y:particle.y,
+
+                w:particle.size,
+
+                h:particle.size
+
+            };
+
+            if(
+
+                game.player
+
+                &&
+
+                rectsIntersect(
+
+                    hitbox,
+
+                    game.player
+
+                )
+
+            ){
+
+                damageTarget(
+
+                    game.boss,
+
+                    game.player,
+
+                    4
+
+                );
+
+            }
+
+        }
+    );
+
+}
+
+// ========================================
+// BOSS AI OVERRIDE
+// ========================================
+
+const oldBossAIPart16 =
+updateBossAI;
+
+updateBossAI =
+function(){
+
+    oldBossAIPart16();
+
+    const boss =
+    game.boss;
+
+    if(!boss)
+        return;
+
+    if(
+        boss.phase === 1
+    ){
+
+        if(
+            Math.random()<0.01
+        ){
+
+            spawnChainProjectile();
+
+        }
+
+    }
+
+    if(
+        boss.phase === 2
+    ){
+
+        if(
+            Math.random()<0.008
+        ){
+
+            bossChainTrap();
+
+        }
+
+    }
+
+    phaseThreeCombatAI();
+
+};
+
+// ========================================
+// EFFECTS
+// ========================================
+
+const oldDrawEffectsPart16 =
+drawEffects;
+
+drawEffects =
+function(){
+
+    oldDrawEffectsPart16();
+
+    game.effects.forEach(
+        effect=>{
+
+            if(
+                effect.type ===
+                "bossSlash"
+            ){
+
+                ctx.fillStyle =
+                "rgba(180,80,255,.5)";
+
+                ctx.fillRect(
+
+                    effect.x,
+
+                    effect.y,
+
+                    effect.w,
+
+                    effect.h
+
+                );
+
+            }
+
+            if(
+                effect.type ===
+                "bossUltimate"
+            ){
+
+                ctx.strokeStyle =
+                "#ff0040";
+
+                ctx.lineWidth = 8;
+
+                ctx.beginPath();
+
+                ctx.arc(
+
+                    effect.x,
+
+                    effect.y,
+
+                    effect.radius,
+
+                    0,
+
+                    Math.PI*2
+
+                );
+
+                ctx.stroke();
+
+            }
+
+        }
+    );
+
+};
+
+// ========================================
+// UPDATE
+// ========================================
+
+const oldUpdatePart16 =
+updateGame;
+
+updateGame =
+function(){
+
+    oldUpdatePart16();
+
+    updateMirrorSpace();
+
+    updateMirrorCollapse();
+
+    updateMirrorHazard();
+
+    updateChainProjectileLogic();
+
+    updateDesperationMode();
+
+};
+
+// ========================================
+// RENDER
+// ========================================
+
+const oldRenderPart16 =
+renderGame;
+
+renderGame =
+function(){
+
+    drawMirrorSpace();
+
+    oldRenderPart16();
+
+};
+
+// ========================================
+// LOAD
+// ========================================
+
+addLog(
+    "Part 16 Loaded."
+);
+
+addLog(
+    "Darklord Boss Reworked."
+);
+
+/*
+========================================
+PART 16 END
+========================================
+
+BETA BUILD 0.16
+
+NEW FEATURES
+
+✅ Mirror Space
+✅ Chain Projectile
+✅ Chain Trap Prediction
+✅ Desperation Mode
+✅ Mirror Collapse Hazard
+✅ Canon Boss Rotation
+✅ Ultimate Sacrifice
+✅ Improved Phase 3
+
+NEXT:
+PART 17
+
+- True Ending Route
+- HN Broken Wings Story Arc
+- Darklord Redemption Ending
+- Betrayed Timeline Events
+- Decision System
+- Multiple Endings
+========================================
+*/
+// ========================================
+// PART 17
+// TRUE ENDING ROUTE
+// ========================================
+
+// ========================================
+// ROUTE FLAGS
+// ========================================
+
+if(!saveData.routes){
+
+    saveData.routes = {
+
+        trueEnding:false,
+
+        darklordRedemption:false,
+
+        brokenWingsEnding:false,
+
+        betrayedEnding:false
+
+    };
+
+}
+
+// ========================================
+// CHOICE SYSTEM
+// ========================================
+
+const choices = {
+
+    mercyDarklord:false,
+
+    rejectDarklord:false,
+
+    brokenWingFound:false,
+
+    timelineRestored:false
+
+};
+
+// ========================================
+// MEMORY FRAGMENT
+// ========================================
+
+if(!saveData.memoryFragments){
+
+    saveData.memoryFragments = [];
+
+}
+
+function unlockMemory(id){
+
+    if(
+
+        saveData.memoryFragments
+        .includes(id)
+
+    ) return;
+
+    saveData.memoryFragments
+    .push(id);
+
+    addLog(
+        "Memory Fragment Obtained"
+    );
+
+}
+
+// ========================================
+// MEMORY DATABASE
+// ========================================
+
+const MEMORIES = {
+
+    LN_01:
+    "Twenty years ago, they were friends.",
+
+    LN_02:
+    "The Black Sword chose a king.",
+
+    LN_03:
+    "The tower remembers everything.",
+
+    BW_01:
+    "A feather fell into darkness.",
+
+    BW_02:
+    "The wing was broken, not destroyed."
+
+};
+
+// ========================================
+// DARKLORD REDEMPTION
+// ========================================
+
+function triggerDarklordRedemption(){
+
+    if(
+
+        !choices.mercyDarklord
+
+    ){
+        return false;
+    }
+
+    saveData.routes
+    .darklordRedemption = true;
+
+    showDialogue(
+
+        "LN Darklord",
+
+        "Perhaps... this chain can finally break."
+
+    );
+
+    unlockMemory(
+        "LN_03"
+    );
+
+    addLog(
+        "Darklord Redemption Route"
+    );
+
+    return true;
+
+}
+
+// ========================================
+// BROKEN WINGS ROUTE
+// ========================================
+
+function triggerBrokenWingRoute(){
+
+    if(
+
+        !choices.brokenWingFound
+
+    ){
+
+        return false;
+
+    }
+
+    saveData.routes
+    .brokenWingsEnding = true;
+
+    unlockMemory(
+        "BW_01"
+    );
+
+    unlockMemory(
+        "BW_02"
+    );
+
+    showDialogue(
+
+        "HN Broken Wings",
+
+        "Even broken wings can reach the sky."
+
+    );
+
+    return true;
+
+}
+
+// ========================================
+// BETRAYED ENDING
+// ========================================
+
+function triggerBetrayedEnding(){
+
+    if(
+
+        game.player
+
+        &&
+
+        game.player.name
+        ===
+        "LN Betrayed"
+
+        &&
+
+        saveData.beatenDarklord
+        >= 1
+
+    ){
+
+        saveData.routes
+        .betrayedEnding = true;
+
+        unlockMemory(
+            "LN_01"
+        );
+
+        unlockMemory(
+            "LN_02"
+        );
+
+        addLog(
+            "Betrayed Timeline Completed"
+        );
+
+    }
+
+}
+
+// ========================================
+// TRUE ENDING
+// ========================================
+
+function triggerTrueEnding(){
+
+    const condition =
+
+    saveData.routes
+    .darklordRedemption
+
+    &&
+
+    saveData.routes
+    .brokenWingsEnding
+
+    &&
+
+    saveData.routes
+    .betrayedEnding;
+
+    if(
+        !condition
+    ) return false;
+
+    saveData.routes
+    .trueEnding = true;
+
+    showAnnouncement(
+        "TRUE ENDING"
+    );
+
+    showDialogue(
+
+        "Narrator",
+
+        "The Multiverse finally becomes whole."
+
+    );
+
+    return true;
+
+}
+
+// ========================================
+// ENDING DATABASE
+// ========================================
+
+const ENDINGS = {
+
+    normal:{
+
+        title:
+        "The Revenge Ends",
+
+        description:
+        "Darklord falls, but the scars remain."
+
+    },
+
+    redemption:{
+
+        title:
+        "Broken Chains",
+
+        description:
+        "Darklord accepts the past."
+
+    },
+
+    brokenWings:{
+
+        title:
+        "Flight Beyond The Sky",
+
+        description:
+        "The broken wing flies again."
+
+    },
+
+    betrayed:{
+
+        title:
+        "The Path Not Taken",
+
+        description:
+        "A different future is witnessed."
+
+    },
+
+    trueEnding:{
+
+        title:
+        "Multiverse Restored",
+
+        description:
+        "Every fragment returns home."
+
+    }
+
+};
+
+// ========================================
+// ENDING GALLERY
+// ========================================
+
+function getUnlockedEndings(){
+
+    const unlocked = [];
+
+    Object.keys(
+        saveData.routes
+    ).forEach(key=>{
+
+        if(
+            saveData.routes[key]
+        ){
+
+            unlocked.push(key);
+
+        }
+
+    });
+
+    return unlocked;
+
+}
+
+// ========================================
+// LORE ARCHIVE
+// ========================================
+
+function openLoreArchive(){
+
+    console.table(
+        saveData.memoryFragments
+        .map(
+
+            fragment=>({
+
+                id:fragment,
+
+                text:
+                MEMORIES[
+                    fragment
+                ]
+
+            })
+
+        )
+    );
+
+}
+
+// ========================================
+// FINAL BATTLE CHECK
+// ========================================
+
+const oldWinPart17 =
+winBattle;
+
+winBattle = function(){
+
+    oldWinPart17();
+
+    if(
+        choices.mercyDarklord
+    ){
+
+        triggerDarklordRedemption();
+
+    }
+
+    triggerBrokenWingRoute();
+
+    triggerBetrayedEnding();
+
+    triggerTrueEnding();
+
+    saveGame();
+
+};
+
+// ========================================
+// SECRET ITEM
+// ========================================
+
+function obtainGoldenFeatherRelic(){
+
+    choices.brokenWingFound =
+    true;
+
+    addLog(
+        "Golden Feather Relic Obtained"
+    );
+
+}
+
+// ========================================
+// DEBUG
+// ========================================
+
+window.unlockAllEndings =
+function(){
+
+    saveData.routes
+    .darklordRedemption = true;
+
+    saveData.routes
+    .brokenWingsEnding = true;
+
+    saveData.routes
+    .betrayedEnding = true;
+
+    triggerTrueEnding();
+
+};
+
+// ========================================
+// LOAD
+// ========================================
+
+addLog(
+    "Part 17 Loaded."
+);
+
+addLog(
+    "Ending System Ready."
+);
+
+/*
+========================================
+PART 17 END
+========================================
+
+BETA BUILD 0.17
+
+NEW FEATURES
+
+✅ Multiple Endings
+✅ Darklord Redemption
+✅ HN Broken Wings Route
+✅ Betrayed Route
+✅ True Ending
+✅ Memory Fragments
+✅ Lore Archive
+✅ Ending Gallery
+
+PART 18:
+- Mirror Space Dungeon
+- Secret Boss
+- Timeline Event System
+- Alternate Darklord
+- Endless Mode
+- Boss Rush
+
+========================================
+*/
+// ========================================
+// PART 18
+// MIRROR SPACE UPDATE
+// ========================================
+
+// ========================================
+// DUNGEON DATABASE
+// ========================================
+
+if(!GAME_DATA.dungeons){
+
+    GAME_DATA.dungeons = [];
+
+}
+
+GAME_DATA.dungeons.push({
+
+    id:"mirror_space",
+
+    name:"Mirror Space",
+
+    unlocked:false,
+
+    description:
+    "A reality created from broken reflections."
+
+});
+
+// ========================================
+// UNLOCK MIRROR SPACE
+// ========================================
+
+function unlockMirrorSpace(){
+
+    const dungeon =
+
+    GAME_DATA.dungeons.find(
+        d=>d.id==="mirror_space"
+    );
+
+    if(!dungeon)
+        return;
+
+    dungeon.unlocked = true;
+
+    addLog(
+        "Mirror Space unlocked."
+    );
+
+}
+
+// ========================================
+// TIMELINE EVENTS
+// ========================================
+
+const timelineEvents = [];
+
+function triggerTimelineEvent(
+    id,
+    text
+){
+
+    timelineEvents.push({
+
+        id,
+
+        text,
+
+        timer:600
+
+    });
+
+    addLog(
+        "Timeline Distortion Detected"
+    );
+
+}
+
+function updateTimelineEvents(){
+
+    timelineEvents.forEach(
+        e=>{
+
+            e.timer--;
+
+        }
+    );
+
+    for(
+        let i=
+        timelineEvents.length-1;
+        i>=0;
+        i--
+    ){
+
+        if(
+
+            timelineEvents[i]
+            .timer <= 0
+
+        ){
+
+            timelineEvents.splice(
+                i,
+                1
+            );
+
+        }
+
+    }
+
+}
+
+// ========================================
+// SECRET BOSS
+// ========================================
+
+const SECRET_BOSS = {
+
+    id:"mirror_darklord",
+
+    name:
+    "Mirror Darklord",
+
+    hp:2500,
+
+    atk:45,
+
+    moveSpeed:3.5
+
+};
+
+function createMirrorDarklord(){
+
+    return {
+
+        ...SECRET_BOSS,
+
+        currentHP:
+        SECRET_BOSS.hp,
+
+        alive:true,
+
+        phase:1,
+
+        x:1000,
+
+        y:540,
+
+        w:100,
+
+        h:100,
+
+        invFrames:0
+
+    };
+
+}
+
+// ========================================
+// SECRET BOSS ENCOUNTER
+// ========================================
+
+function canFightMirrorDarklord(){
+
+    return (
+
+        saveData.routes
+        .trueEnding
+
+    );
+
+}
+
+function startMirrorDarklordFight(){
+
+    if(
+        !canFightMirrorDarklord()
+    ){
+
+        addLog(
+          "A hidden power rejects you."
+        );
+
+        return;
+
+    }
+
+    game.boss =
+    createMirrorDarklord();
+
+    addLog(
+        "Mirror Darklord Appeared"
+    );
+
+    showAnnouncement(
+        "MIRROR DARKLORD"
+    );
+
+}
+
+// ========================================
+// MIRROR ENEMIES
+// ========================================
+
+function spawnMirrorEnemy(){
+
+    return {
+
+        x:
+        900 +
+        Math.random()*100,
+
+        y:560,
+
+        w:35,
+
+        h:35,
+
+        hp:40,
+
+        currentHP:40,
+
+        atk:12,
+
+        alive:true
+
+    };
+
+}
+
+// ========================================
+// ENDLESS MODE
+// ========================================
+
+const endlessMode = {
+
+    active:false,
+
+    wave:0,
+
+    enemies:[]
+
+};
+
+function startEndlessMode(){
+
+    endlessMode.active =
+    true;
+
+    endlessMode.wave = 1;
+
+    spawnEndlessWave();
+
+    addLog(
+       "Endless Mode Started"
+    );
+
+}
+
+function spawnEndlessWave(){
+
+    endlessMode.enemies =
+    [];
+
+    for(
+        let i=0;
+        i<
+        endlessMode.wave + 2;
+        i++
+    ){
+
+        endlessMode.enemies.push(
+
+            spawnMirrorEnemy()
+
+        );
+
+    }
+
+}
+
+// ========================================
+// ENDLESS UPDATE
+// ========================================
+
+function updateEndlessMode(){
+
+    if(
+        !endlessMode.active
+    ) return;
+
+    if(
+
+        endlessMode.enemies
+        .every(
+
+            enemy=>
+            !enemy.alive
+
+        )
+
+    ){
+
+        endlessMode.wave++;
+
+        showAnnouncement(
+
+            "WAVE "
+
+            +
+
+            endlessMode.wave
+
+        );
+
+        spawnEndlessWave();
+
+    }
+
+}
+
+// ========================================
+// BOSS RUSH
+// ========================================
+
+const bossRush = {
+
+    active:false,
+
+    current:0,
+
+    list:[
+
+        "LN Darklord",
+
+        "Mirror Darklord"
+
+    ]
+
+};
+
+function startBossRush(){
+
+    bossRush.active =
+    true;
+
+    bossRush.current =
+    0;
+
+    loadNextBoss();
+
+}
+
+function loadNextBoss(){
+
+    const bossId =
+
+    bossRush.list[
+        bossRush.current
+    ];
+
+    if(
+        !bossId
+    ){
+
+        addLog(
+           "Boss Rush Cleared"
+        );
+
+        return;
+
+    }
+
+    if(
+        bossId ===
+        "LN Darklord"
+    ){
+
+        game.boss =
+        createDarklordBoss();
+
+    }
+
+    if(
+        bossId ===
+        "Mirror Darklord"
+    ){
+
+        game.boss =
+        createMirrorDarklord();
+
+    }
+
+    showAnnouncement(
+        bossId
+    );
+
+}
+
+// ========================================
+// BOSS RUSH CHECK
+// ========================================
+
+function updateBossRush(){
+
+    if(
+        !bossRush.active
+    ) return;
+
+    if(
+        game.boss
+        &&
+        !game.boss.alive
+    ){
+
+        bossRush.current++;
+
+        loadNextBoss();
+
+    }
+
+}
+
+// ========================================
+// MIRROR DISTORTION
+// ========================================
+
+function updateMirrorVisuals(){
+
+    if(
+        !game.mirrorSpace.active
+    ) return;
+
+    if(
+        Math.random()<0.03
+    ){
+
+        spawnParticle({
+
+            x:
+            Math.random()
+            *canvas.width,
+
+            y:
+            Math.random()
+            *canvas.height,
+
+            color:"#b060ff",
+
+            size:10,
+
+            life:90
+
+        });
+
+    }
+
+}
+
+// ========================================
+// DRAW TIMELINE EVENT
+// ========================================
+
+function drawTimelineEvents(){
+
+    if(
+        timelineEvents.length === 0
+    ) return;
+
+    const event =
+
+    timelineEvents[0];
+
+    ctx.fillStyle =
+
+    "rgba(20,0,40,.8)";
+
+    ctx.fillRect(
+        250,
+        80,
+        700,
+        70
+    );
+
+    ctx.fillStyle =
+    "#ffffff";
+
+    ctx.font =
+    "20px Arial";
+
+    ctx.fillText(
+
+        event.text,
+
+        280,
+
+        125
+
+    );
+
+}
+
+// ========================================
+// TRUE ENDING REWARD
+// ========================================
+
+const oldTriggerTrueEndingPart18 =
+triggerTrueEnding;
+
+triggerTrueEnding =
+function(){
+
+    const result =
+
+    oldTriggerTrueEndingPart18();
+
+    unlockMirrorSpace();
+
+    return result;
+
+};
+
+// ========================================
+// UPDATE
+// ========================================
+
+const oldUpdatePart18 =
+updateGame;
+
+updateGame =
+function(){
+
+    oldUpdatePart18();
+
+    updateTimelineEvents();
+
+    updateEndlessMode();
+
+    updateBossRush();
+
+    updateMirrorVisuals();
+
+};
+
+// ========================================
+// RENDER
+// ========================================
+
+const oldRenderPart18 =
+renderGame;
+
+renderGame =
+function(){
+
+    oldRenderPart18();
+
+    drawTimelineEvents();
+
+};
+
+// ========================================
+// LOAD
+// ========================================
+
+addLog(
+    "Part 18 Loaded."
+);
+
+addLog(
+    "Mirror Space Available."
+);
+
+/*
+========================================
+PART 18 END
+========================================
+
+BUILD v0.18
+
+NEW FEATURES
+
+✅ Mirror Space Dungeon
+✅ Secret Boss
+✅ Mirror Darklord
+✅ Endless Mode
+✅ Boss Rush
+✅ Timeline Events
+✅ True Ending Reward
+✅ Mirror Enemies
+
+NEXT:
+PART 19
+
+- Multiplayer Framework
+- Companion System
+- HN Broken Wings Questline
+- Expanded Story Mode
+- Raid Boss Architecture
+- Guild Framework
+========================================
+*/
+// ========================================
+// PART 19
+// COMPANION + QUESTLINE + RAID FRAMEWORK
+// ========================================
+
+// ========================================
+// COMPANION SYSTEM
+// ========================================
+
+if(!saveData.companions){
+
+    saveData.companions = [];
+
+}
+
+const COMPANIONS = {
+
+    featherSpirit:{
+
+        id:"featherSpirit",
+
+        name:"Golden Feather Spirit",
+
+        unlocked:false,
+
+        atk:6,
+
+        heal:2
+
+    }
+
+};
+
+function unlockCompanion(id){
+
+    if(
+        saveData.companions
+        .includes(id)
+    ) return;
+
+    saveData.companions.push(id);
+
+    addLog(
+        COMPANIONS[id].name +
+        " joined you."
+    );
+
+}
+
+// ========================================
+// ACTIVE COMPANION
+// ========================================
+
+let activeCompanion = null;
+
+function summonCompanion(id){
+
+    if(
+        !saveData.companions
+        .includes(id)
+    ) return;
+
+    activeCompanion = {
+
+        ...COMPANIONS[id],
+
+        x:0,
+        y:0
+
+    };
+
+}
+
+// ========================================
+// COMPANION AI
+// ========================================
+
+function updateCompanion(){
+
+    if(
+        !activeCompanion
+    ) return;
+
+    const player =
+    game.player;
+
+    activeCompanion.x =
+
+        player.x - 40;
+
+    activeCompanion.y =
+
+        player.y - 30;
+
+    if(
+
+        game.frame % 300 === 0
+
+    ){
+
+        healTarget(
+            player,
+            activeCompanion.heal
+        );
+
+    }
+
+}
+
+// ========================================
+// DRAW COMPANION
+// ========================================
+
+function drawCompanion(){
+
+    if(
+        !activeCompanion
+    ) return;
+
+    ctx.fillStyle =
+    "#ffe066";
+
+    ctx.fillRect(
+
+        activeCompanion.x,
+
+        activeCompanion.y,
+
+        18,
+
+        18
+
+    );
+
+}
+
+// ========================================
+// HN BROKEN WINGS QUESTLINE
+// ========================================
+
+if(!saveData.questData){
+
+    saveData.questData = {};
+
+}
+
+saveData.questData.brokenWingQuest ??= {
+
+    started:false,
+
+    completed:false,
+
+    feathersFound:0
+
+};
+
+function startBrokenWingQuest(){
+
+    const quest =
+
+    saveData.questData
+    .brokenWingQuest;
+
+    if(
+        quest.started
+    ) return;
+
+    quest.started = true;
+
+    addLog(
+        "Quest Started: Broken Wings"
+    );
+
+}
+
+function collectGoldenFeather(){
+
+    const quest =
+
+    saveData.questData
+    .brokenWingQuest;
+
+    quest.feathersFound++;
+
+    addLog(
+
+        "Golden Feather "
+
+        +
+
+        quest.feathersFound
+
+        +
+
+        "/10"
+
+    );
+
+    if(
+
+        quest.feathersFound >= 10
+
+    ){
+
+        quest.completed = true;
+
+        unlockCharacter(
+            "HN Broken Wings"
+        );
+
+        unlockCompanion(
+            "featherSpirit"
+        );
+
+        addLog(
+           "Broken Wings Route Complete"
+        );
+
+    }
+
+}
+
+// ========================================
+// RAID BOSS DATABASE
+// ========================================
+
+const RAID_BOSSES = {
+
+    kingOfMirrors:{
+
+        hp:10000,
+
+        atk:60,
+
+        phases:5
+
+    }
+
+};
+
+// ========================================
+// RAID FRAMEWORK
+// ========================================
+
+const raidSystem = {
+
+    active:false,
+
+    raidBoss:null,
+
+    participants:[]
+
+};
+
+function startRaid(id){
+
+    const raidBoss =
+    RAID_BOSSES[id];
+
+    if(!raidBoss)
+        return;
+
+    raidSystem.active =
+    true;
+
+    raidSystem.raidBoss = {
+
+        ...raidBoss,
+
+        currentHP:
+        raidBoss.hp
+
+    };
+
+    addLog(
+        "Raid Started"
+    );
+
+}
+
+// ========================================
+// GUILD SYSTEM
+// ========================================
+
+if(!saveData.guild){
+
+    saveData.guild = {
+
+        created:false,
+
+        name:"",
+
+        level:1
+
+    };
+
+}
+
+function createGuild(name){
+
+    saveData.guild.created =
+    true;
+
+    saveData.guild.name =
+    name;
+
+    saveGame();
+
+    addLog(
+        "Guild Created"
+    );
+
+}
+
+// ========================================
+// TIMELINE MISSIONS
+// ========================================
+
+const TIMELINE_MISSIONS = {
+
+    restoreMemory:{
+
+        title:
+        "Restore Lost Memory",
+
+        completed:false
+
+    },
+
+    saveDarklord:{
+
+        title:
+        "Save LN Darklord",
+
+        completed:false
+
+    }
+
+};
+
+// ========================================
+// STORY CHAPTERS
+// ========================================
+
+if(!saveData.story){
+
+    saveData.story = {
+
+        chapter:1
+
+    };
+
+}
+
+function unlockNextChapter(){
+
+    saveData.story.chapter++;
+
+    addLog(
+
+        "Chapter "
+
+        +
+
+        saveData.story.chapter
+
+        +
+
+        " unlocked."
+
+    );
+
+}
+
+// ========================================
+// DAILY SYSTEM
+// ========================================
+
+if(!saveData.daily){
+
+    saveData.daily = {
+
+        completed:false,
+
+        rewardClaimed:false
+
+    };
+
+}
+
+function claimDailyReward(){
+
+    if(
+        saveData.daily.rewardClaimed
+    ){
+
+        return;
+
+    }
+
+    saveData.coins += 500;
+
+    saveData.daily.rewardClaimed =
+    true;
+
+    refreshProfile();
+
+}
+
+// ========================================
+// STAT PAGE
+// ========================================
+
+function getAccountStats(){
+
+    return {
+
+        bossesDefeated:
+        saveData.beatenDarklord,
+
+        fragments:
+        saveData.fragments,
+
+        characters:
+        saveData.unlockedCharacters.length,
+
+        endings:
+        getUnlockedEndings().length,
+
+        highestCombo:
+        comboSystem.maxCombo
+
+    };
+
+}
+
+// ========================================
+// UPDATE
+// ========================================
+
+const oldUpdatePart19 =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdatePart19();
+
+    updateCompanion();
+
+};
+
+// ========================================
+// RENDER
+// ========================================
+
+const oldRenderPart19 =
+renderGame;
+
+renderGame = function(){
+
+    oldRenderPart19();
+
+    drawCompanion();
+
+};
+
+// ========================================
+// LOAD
+// ========================================
+
+addLog(
+    "Part 19 Loaded."
+);
+
+addLog(
+    "Companion System Ready."
+);
+
+/*
+========================================
+PART 19 END
+========================================
+
+BUILD v0.19
+
+NEW FEATURES
+
+✅ Companion System
+✅ Golden Feather Spirit
+✅ HN Broken Wings Questline
+✅ Guild Framework
+✅ Raid Framework
+✅ Timeline Missions
+✅ Daily Reward
+✅ Story Chapters
+✅ Account Statistics
+
+PART 20:
+- Story Mode Chapter 1
+- Intro Movie
+- Tutorial Battle
+- Old Friend Flashback
+- Darklord Origin Arc
+- Chapter Bosses
+- Save Slot Expansion
+
+=> Đây sẽ là phần bắt đầu biến game từ "Boss Battle Demo"
+thành "Story RPG" hoàn chỉnh.
+========================================
+*/
+// ========================================
+// PART 20
+// STORY MODE CHAPTER 1
+// ========================================
+
+// ========================================
+// STORY DATABASE
+// ========================================
+
+const STORY_MODE = {
+
+    chapter1:{
+
+        title:
+        "The Revenge of Old Friend",
+
+        intro:[
+
+            "20 years ago...",
+
+            "A friend disappeared.",
+
+            "Only the Black Sword remained.",
+
+            "The tower still watches.",
+
+            "The Multiverse remembers."
+
+        ]
+
+    }
+
+};
+
+// ========================================
+// STORY STATE
+// ========================================
+
+if(!saveData.storyProgress){
+
+    saveData.storyProgress = {
+
+        chapter1:false,
+
+        tutorial:false,
+
+        flashback:false
+
+    };
+
+}
+
+// ========================================
+// INTRO MOVIE
+// ========================================
+
+const storyMovie = {
+
+    active:false,
+
+    lines:[],
+
+    index:0,
+
+    timer:0
+
+};
+
+function startStoryMovie(
+    lines
+){
+
+    storyMovie.active =
+    true;
+
+    storyMovie.lines =
+    [...lines];
+
+    storyMovie.index = 0;
+
+    storyMovie.timer = 240;
+
+}
+
+function updateStoryMovie(){
+
+    if(
+        !storyMovie.active
+    ) return;
+
+    storyMovie.timer--;
+
+    if(
+        storyMovie.timer <= 0
+    ){
+
+        storyMovie.index++;
+
+        storyMovie.timer = 240;
+
+    }
+
+    if(
+
+        storyMovie.index >=
+        storyMovie.lines.length
+
+    ){
+
+        storyMovie.active =
+        false;
+
+    }
+
+}
+
+// ========================================
+// DRAW STORY MOVIE
+// ========================================
+
+function drawStoryMovie(){
+
+    if(
+        !storyMovie.active
+    ) return;
+
+    ctx.fillStyle =
+    "rgba(0,0,0,0.85)";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    ctx.fillStyle =
+    "#f4c95d";
+
+    ctx.font =
+    "bold 38px Arial";
+
+    ctx.fillText(
+
+        storyMovie.lines[
+            storyMovie.index
+        ],
+
+        120,
+
+        canvas.height/2
+
+    );
+
+}
+
+// ========================================
+// FLASHBACK
+// ========================================
+
+function playOldFriendFlashback(){
+
+    startStoryMovie([
+
+        "LN and his friend stood together.",
+
+        "No chains.",
+
+        "No darkness.",
+
+        "Only hope."
+
+    ]);
+
+    saveData.storyProgress
+    .flashback = true;
+
+}
+
+// ========================================
+// TUTORIAL ENEMY
+// ========================================
+
+function spawnTutorialDummy(){
+
+    return {
+
+        x:800,
+
+        y:550,
+
+        w:50,
+
+        h:70,
+
+        hp:100,
+
+        currentHP:100,
+
+        alive:true,
+
+        tutorial:true
+
+    };
+
+}
+
+// ========================================
+// TUTORIAL START
+// ========================================
+
+function startTutorialBattle(){
+
+    game.boss =
+    spawnTutorialDummy();
+
+    saveData.storyProgress
+    .tutorial = true;
+
+    addLog(
+        "Tutorial Battle Started"
+    );
+
+}
+
+// ========================================
+// ORIGIN ARC
+// ========================================
+
+const DARKLORD_ORIGIN = [
+
+"The sword whispered.",
+
+"The tower answered.",
+
+"The chain was forged.",
+
+"The king was born."
+
+];
+
+function startDarklordOriginArc(){
+
+    startStoryMovie(
+        DARKLORD_ORIGIN
+    );
+
+}
+
+// ========================================
+// STORY BATTLE CHECK
+// ========================================
+
+function updateStoryProgress(){
+
+    if(
+
+        game.boss
+
+        &&
+
+        game.boss.tutorial
+
+        &&
+
+        !game.boss.alive
+
+    ){
+
+        saveData.storyProgress
+        .tutorial = true;
+
+        unlockAchievement(
+            "First Battle"
+        );
+
+    }
+
+}
+
+// ========================================
+// SAVE SLOT SYSTEM
+// ========================================
+
+if(!saveData.saveSlots){
+
+    saveData.saveSlots = [
+
+        null,
+
+        null,
+
+        null
+
+    ];
+
+}
+
+function saveToSlot(slot){
+
+    saveData.saveSlots[slot] =
+
+    JSON.stringify(
+        saveData
+    );
+
+    addLog(
+        "Saved to Slot "
+        +
+        (slot+1)
+    );
+
+}
+
+function loadSlot(slot){
+
+    const slotData =
+
+    saveData.saveSlots[
+        slot
+    ];
+
+    if(
+        !slotData
+    ) return;
+
+    Object.assign(
+
+        saveData,
+
+        JSON.parse(slotData)
+
+    );
+
+    addLog(
+        "Loaded Slot "
+        +
+        (slot+1)
+    );
+
+}
+
+// ========================================
+// CHAPTER COMPLETE
+// ========================================
+
+function completeChapter1(){
+
+    if(
+        saveData.storyProgress
+        .chapter1
+    ) return;
+
+    saveData.storyProgress
+    .chapter1 = true;
+
+    addLog(
+        "Chapter 1 Complete"
+    );
+
+    unlockAchievement(
+        "The Revenge of Old Friend"
+    );
+
+    unlockNextChapter();
+
+}
+
+// ========================================
+// VICTORY STORY CHECK
+// ========================================
+
+const oldWinPart20 =
+winBattle;
+
+winBattle = function(){
+
+    oldWinPart20();
+
+    completeChapter1();
+
+};
+
+// ========================================
+// STORY MENU
+// ========================================
+
+function startChapter1(){
+
+    startStoryMovie(
+
+        STORY_MODE
+        .chapter1
+        .intro
+
+    );
+
+    setTimeout(()=>{
+
+        startDungeon();
+
+    },12000);
+
+}
+
+// ========================================
+// UPDATE
+// ========================================
+
+const oldUpdatePart20 =
+updateGame;
+
+updateGame = function(){
+
+    oldUpdatePart20();
+
+    updateStoryMovie();
+
+    updateStoryProgress();
+
+};
+
+// ========================================
+// RENDER
+// ========================================
+
+const oldRenderPart20 =
+renderGame;
+
+renderGame = function(){
+
+    oldRenderPart20();
+
+    drawStoryMovie();
+
+};
+
+// ========================================
+// BOOT EVENT
+// ========================================
+
+if(
+
+    !saveData.storyProgress
+    .tutorial
+
+){
+
+    addLog(
+      "Tutorial Available"
+    );
+
+}
+
+// ========================================
+// LOAD
+// ========================================
+
+addLog(
+    "Part 20 Loaded."
+);
+
+addLog(
+    "Story Mode Chapter 1 Ready."
+);
+
+/*
+========================================
+PART 20 END
+========================================
+
+STORY RPG BUILD v0.20
+
+NEW FEATURES
+
+✅ Story Mode
+✅ Chapter 1
+✅ Intro Movie
+✅ Flashbacks
+✅ Darklord Origin Arc
+✅ Tutorial Battle
+✅ Save Slots
+✅ Chapter Completion
+✅ Story Events
+
+NEXT:
+PART 21
+
+- Chapter 2
+- Mirror Space Storyline
+- HN Broken Wings Narrative
+- LN Betrayed Personal Route
+- World Map
+- Quest Journal
+
+=> Từ Part 21 trở đi game bắt đầu bước sang
+giai đoạn Story RPG mở rộng.
+========================================
+*/
